@@ -1,0 +1,29 @@
+[
+  {
+    "id": "mkt_demo_001",
+    "title": "Will Example Corp beat earnings this quarter?",
+    "description": "Q4 earnings report for Example Corp scheduled next month.",
+    "category": "finance",
+    "status": "active",
+    "close_date": "2025-12-01T00:00:00.000Z",
+    "resolution_date": null,
+    "outcomes": [
+      {
+        "id": "yes",
+        "title": "Yes",
+        "probability": 100,
+        "total_stake": 1500
+      },
+      {
+        "id": "no",
+        "title": "No",
+        "probability": 0,
+        "total_stake": 0
+      }
+    ],
+    "total_volume": 1500,
+    "image_url": "",
+    "winning_outcome_id": null,
+    "search_keywords": "Example Corp earnings"
+  }
+]

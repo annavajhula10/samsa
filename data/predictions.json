@@ -1,0 +1,26 @@
+[
+  {
+    "id": "CU-x0FMixumO",
+    "market_id": "mkt_demo_001",
+    "outcome_id": "yes",
+    "stake_amount": 500,
+    "odds_at_prediction": 50,
+    "potential_return": 1000,
+    "status": "active",
+    "actual_return": 0,
+    "user_id": "demo",
+    "created_at": "2025-11-13T23:53:11.425Z"
+  },
+  {
+    "id": "dyE2OVWBAZyk",
+    "market_id": "mkt_demo_001",
+    "outcome_id": "yes",
+    "stake_amount": 1000,
+    "odds_at_prediction": 50,
+    "potential_return": 2000,
+    "status": "active",
+    "actual_return": 0,
+    "user_id": "demo",
+    "created_at": "2025-11-13T23:53:22.994Z"
+  }
+]

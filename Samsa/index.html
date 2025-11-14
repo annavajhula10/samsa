@@ -16,6 +16,7 @@
     .line-clamp-2 {
       display: -webkit-box;
       -webkit-line-clamp: 2;
+      line-clamp: 2;
       -webkit-box-orient: vertical;
       overflow: hidden;
     }
@@ -187,7 +188,7 @@
   <div class="sidebar">
     <div class="sidebar-content">
       <div class="sidebar-logo">
-        <div class="sidebar-logo-icon">
+        <div class="sidebar-logo-icon cursor-pointer" onclick="navigateTo('dashboard')" title="Open Dashboard">
           <img src="Logo.png" alt="Samsa Logo" />
         </div>
         <span class="sidebar-logo-text">Samsa</span>
@@ -316,24 +317,157 @@
 
       <div id="detailContent"></div>
     </div>
+
+    <!-- Dashboard View -->
+    <div id="dashboardView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-white mb-2">Dashboard</h2>
+        <p class="text-slate-400">Overview of markets, portfolio, and activity</p>
+      </div>
+
+      <!-- Top row stats -->
+      <div id="dbStats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8"></div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Balance Chart placeholder -->
+        <div class="lg:col-span-2 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">📉 Portfolio Balance</h3>
+          <div class="h-48 bg-slate-800/40 rounded-xl flex items-end gap-1 p-2">
+            <!-- simple sparkline bars -->
+            <div class="flex-1 h-24 bg-yellow-600/40 rounded"></div>
+            <div class="flex-1 h-16 bg-yellow-600/40 rounded"></div>
+            <div class="flex-1 h-32 bg-yellow-600/40 rounded"></div>
+            <div class="flex-1 h-20 bg-yellow-600/40 rounded"></div>
+            <div class="flex-1 h-28 bg-yellow-600/40 rounded"></div>
+            <div class="flex-1 h-12 bg-yellow-600/40 rounded"></div>
+            <div class="flex-1 h-36 bg-yellow-600/40 rounded"></div>
+            <div class="flex-1 h-18 bg-yellow-600/40 rounded"></div>
+          </div>
+        </div>
+
+        <!-- Buying power style card -->
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-sm font-medium text-slate-400">Buying power</h3>
+          <div id="dbBuyingPower" class="text-2xl font-bold text-white mt-2">$0</div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
+        <!-- Positions Snapshot -->
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-xl font-semibold text-white mb-4">📋 Positions</h3>
+          <div id="dbPositions" class="space-y-3"></div>
+        </div>
+
+        <!-- Top Markets Snapshot -->
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-xl font-semibold text-white mb-4">🔥 Trending Markets</h3>
+          <div id="dbTrending" class="space-y-3"></div>
+        </div>
+      </div>
+
+      <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 mt-8">
+        <h3 class="text-xl font-semibold text-white mb-4">🕒 Recent Activity</h3>
+        <div id="dbActivity" class="space-y-3"></div>
+      </div>
+    </div>
+
+    <!-- Portfolio View -->
+    <div id="portfolioView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
+      <div class="mb-8 flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-bold text-white mb-2">Portfolio Overview</h2>
+          <p class="text-slate-400">Your active predictions, balance, and performance</p>
+        </div>
+        <button id="createPositionBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold shadow hover:brightness-110 transition">
+          + Create Position
+        </button>
+      </div>
+
+      <!-- Stats -->
+      <div id="portfolioStats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8"></div>
+
+      <!-- Filters -->
+      <div class="mb-6">
+        <div class="flex gap-2 flex-wrap bg-slate-900/50 border border-slate-800 p-2 rounded-lg">
+          <button data-filter="all" class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950">All</button>
+          <button data-filter="active" class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Active</button>
+          <button data-filter="won" class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Won</button>
+          <button data-filter="lost" class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Lost</button>
+        </div>
+      </div>
+
+      <!-- Holdings Grid -->
+      <div id="portfolioContent" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
+
+    <!-- Activity View -->
+    <div id="activityView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-white mb-2">Activity</h2>
+        <p class="text-slate-400">Recent trades, resolutions, and updates</p>
+      </div>
+
+      <!-- Filters -->
+      <div class="mb-6">
+        <div class="flex gap-2 flex-wrap bg-slate-900/50 border border-slate-800 p-2 rounded-lg">
+          <button data-afilter="all" class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950">All</button>
+          <button data-afilter="trade" class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Trades</button>
+          <button data-afilter="resolution" class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Resolutions</button>
+        </div>
+      </div>
+
+      <!-- Activity List -->
+      <div id="activityContent" class="space-y-4"></div>
+    </div>
+
+    <!-- Leaderboard View -->
+    <div id="leaderboardView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
+      <div class="mb-8">
+        <h2 class="text-2xl font-bold text-white mb-2">Leaderboard</h2>
+        <p class="text-slate-400">Top markets and categories by volume</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Top Markets -->
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">📈 Top Markets</h3>
+          <div id="lbMarkets" class="space-y-3"></div>
+        </div>
+
+        <!-- Top Categories -->
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">🏷️ Top Categories</h3>
+          <div id="lbCategories" class="space-y-3"></div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script>
     // Navigation function
     function navigateTo(page) {
+      const clickedItem = (typeof event !== 'undefined' && event && event.target) ? event.target.closest('.sidebar-item') : null;
       // Remove active class from all sidebar items
-      document.querySelectorAll('.sidebar-item').forEach(item => {
-        item.classList.remove('active');
-      });
+      document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
+      // Add active class to clicked item when available
+      if (clickedItem) clickedItem.classList.add('active');
 
-      // Add active class to clicked item
-      event.target.closest('.sidebar-item').classList.add('active');
-
-      // Handle navigation based on page
       if (page === 'markets') {
         showMarkets();
+      } else if (page === 'dashboard') {
+        showDashboard();
+      } else if (page === 'portfolio') {
+        showPortfolio();
+      } else if (page === 'activity') {
+        showActivity();
+      } else if (page === 'leaderboard') {
+        showLeaderboard();
+      } else if (page === 'settings') {
+        showSettings();
+      } else if (page === 'profile') {
+        showProfile();
       } else {
-        // For demo purposes, show an alert for other pages
         alert(`${page.charAt(0).toUpperCase() + page.slice(1)} page - Coming soon!`);
       }
     }
@@ -743,7 +877,707 @@
     // Initialize
     renderMarkets();
     console.log('Samsa Prediction Markets loaded successfully!');
+
+    // --- Backend Data Loading & Fallbacks ---
+    const APP = { markets: [], predictions: [], loaded: false };
+
+    async function fetchJson(url) {
+      try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } catch (e) {
+        console.warn('Fetch failed', url, e.message);
+        return null;
+      }
+    }
+
+    async function loadBackendData() {
+      if (APP.loaded) return;
+      const mkts = await fetchJson('/api/markets');
+      const preds = await fetchJson('/api/predictions');
+
+      // Fallback demo data if backend empty or unavailable
+      APP.markets = Array.isArray(mkts) && mkts.length > 0 ? mkts : [
+        {
+          id: 'mkt_demo_001',
+          title: 'Will Example Corp beat earnings this quarter?',
+          description: 'Q4 earnings report scheduled next month.',
+          category: 'finance',
+          status: 'active',
+          outcomes: [
+            { id: 'yes', title: 'Yes', probability: 52, total_stake: 12000 },
+            { id: 'no', title: 'No', probability: 48, total_stake: 11000 }
+          ],
+          total_volume: 23000,
+          image_url: '',
+          winning_outcome_id: null,
+          search_keywords: 'Example Corp earnings'
+        },
+        {
+          id: 'mkt_demo_002',
+          title: 'Will Bitcoin reach $100,000 by end of 2025?',
+          description: 'Predict BTC hitting $100k before 2025 ends',
+          category: 'crypto',
+          status: 'active',
+          outcomes: [
+            { id: 'yes', title: 'Yes', probability: 65, total_stake: 15000 },
+            { id: 'no', title: 'No', probability: 35, total_stake: 8000 }
+          ],
+          total_volume: 23000,
+          image_url: '',
+          winning_outcome_id: null,
+          search_keywords: 'Bitcoin BTC'
+        }
+      ];
+
+      APP.predictions = Array.isArray(preds) && preds.length > 0 ? preds : [
+        {
+          id: 'pred_1', market_id: 'mkt_demo_002', outcome_id: 'yes', stake_amount: 2500,
+          odds_at_prediction: 65, potential_return: 3846, status: 'active', actual_return: 0,
+          user_id: 'demo', created_at: '2025-10-28T10:24:00Z'
+        },
+        {
+          id: 'pred_2', market_id: 'mkt_demo_001', outcome_id: 'no', stake_amount: 1200,
+          odds_at_prediction: 55, potential_return: 2181, status: 'won', actual_return: 2181,
+          user_id: 'demo', created_at: '2025-08-12T14:05:00Z'
+        },
+        {
+          id: 'pred_3', market_id: 'mkt_demo_001', outcome_id: 'yes', stake_amount: 800,
+          odds_at_prediction: 40, potential_return: 2000, status: 'lost', actual_return: 0,
+          user_id: 'demo', created_at: '2025-04-20T09:15:00Z'
+        },
+        {
+          id: 'pred_4', market_id: 'mkt_demo_002', outcome_id: 'no', stake_amount: 1500,
+          odds_at_prediction: 35, potential_return: 4285, status: 'active', actual_return: 0,
+          user_id: 'demo', created_at: '2025-11-01T18:45:00Z'
+        }
+      ];
+
+      APP.loaded = true;
+    }
+
+    async function postJson(url, body) {
+      try {
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return await res.json();
+      } catch (e) {
+        console.warn('Post failed', url, e.message);
+        return null;
+      }
+    }
+
+    function hideAllViews() {
+      const ids = ['marketsView','detailView','dashboardView','portfolioView','activityView','settingsView','profileView'];
+      ids.forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('hidden'); });
+    }
+
+    function formatCurrency(n) {
+      return `$${Number(n).toLocaleString()}`;
+    }
+
+    // Currency helpers (respect Settings currency)
+    function currencySymbol() {
+      const s = readSettings();
+      switch ((s.currency||'USD').toUpperCase()) {
+        case 'EUR': return '€';
+        case 'GBP': return '£';
+        default: return '$';
+      }
+    }
+    function fmtMoney(n) {
+      const s = readSettings();
+      const locale = s.currency === 'EUR' ? 'de-DE' : s.currency === 'GBP' ? 'en-GB' : 'en-US';
+      const curr = (s.currency||'USD');
+      try {
+        return new Intl.NumberFormat(locale, { style: 'currency', currency: curr }).format(n||0);
+      } catch {
+        const sym = currencySymbol();
+        return `${sym}${Number(n||0).toLocaleString()}`;
+      }
+    }
+
+    function renderPortfolioStats() {
+      const balance = APP.predictions.reduce((sum, p) => sum + (p.status === 'won' ? p.actual_return : 0), 0);
+      const invested = APP.predictions.reduce((sum, p) => sum + p.stake_amount, 0);
+      const unrealized = APP.predictions
+        .filter(p => p.status === 'active')
+        .reduce((sum, p) => sum + (p.potential_return - p.stake_amount), 0);
+      const activeCount = APP.predictions.filter(p => p.status === 'active').length;
+      const wonCount = APP.predictions.filter(p => p.status === 'won').length;
+      const lostCount = APP.predictions.filter(p => p.status === 'lost').length;
+
+      document.getElementById('portfolioStats').innerHTML = `
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-slate-400 text-sm font-medium mb-1">Balance</p>
+              <p class="text-3xl font-bold text-white">${formatCurrency(balance)}</p>
+            </div>
+            <div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-2xl">💰</div>
+          </div>
+        </div>
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-slate-400 text-sm font-medium mb-1">Invested</p>
+              <p class="text-3xl font-bold text-white">${formatCurrency(invested)}</p>
+            </div>
+            <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-2xl">📈</div>
+          </div>
+        </div>
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-slate-400 text-sm font-medium mb-1">Unrealized P/L</p>
+              <p class="text-3xl font-bold ${unrealized >= 0 ? 'text-green-400' : 'text-red-400'}">${formatCurrency(unrealized)}</p>
+            </div>
+            <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-2xl">🟢</div>
+          </div>
+        </div>
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-slate-400 text-sm font-medium mb-1">Positions</p>
+              <p class="text-3xl font-bold text-white">${activeCount} active · ${wonCount} won · ${lostCount} lost</p>
+            </div>
+            <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-2xl">📊</div>
+          </div>
+        </div>
+      `;
+    }
+
+    function getMarketById(id) { return APP.markets.find(m => m.id === id); }
+    function getOutcomeTitle(market, outcome_id) {
+      const o = market?.outcomes?.find(x => x.id === outcome_id);
+      return o ? o.title : outcome_id;
+    }
+
+    function renderPortfolio(filter = 'all') {
+      renderPortfolioStats();
+      const list = APP.predictions.filter(p => filter === 'all' ? true : p.status === filter);
+      const html = list.map(p => {
+        const market = getMarketById(p.market_id);
+        const marketTitle = market ? market.title : p.market_id;
+        const outcomeTitle = getOutcomeTitle(market, p.outcome_id);
+        const odds = p.odds_at_prediction;
+        return `
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <h3 class="text-lg font-bold text-white">${marketTitle}</h3>
+              <p class="text-slate-400 text-sm">${outcomeTitle} @ ${odds}%</p>
+            </div>
+            <span class="px-3 py-1 rounded-lg text-xs font-semibold ${p.status === 'active' ? 'bg-indigo-500/10 text-indigo-300' : p.status === 'won' ? 'bg-green-500/10 text-green-300' : 'bg-red-500/10 text-red-300'}">${p.status.toUpperCase()}</span>
+          </div>
+          <div class="space-y-2">
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-slate-400">Stake</span>
+              <span class="text-white font-medium">${formatCurrency(p.stake_amount)}</span>
+            </div>
+            <div class="flex items-center justify-between text-sm">
+              <span class="text-slate-400">Potential Return</span>
+              <span class="text-white font-medium">${formatCurrency(p.potential_return)}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="flex-1 bg-slate-700 rounded-full h-2 overflow-hidden">
+                <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 h-full rounded-full transition-all duration-300" style="width: ${odds}%"></div>
+              </div>
+              <span class="text-yellow-400 font-bold text-sm">${odds}%</span>
+            </div>
+          </div>
+          <div class="mt-4 text-xs text-slate-500">Entered ${new Date(p.created_at).toLocaleDateString()}</div>
+        </div>
+      `; }).join('');
+      document.getElementById('portfolioContent').innerHTML = html || `<div class="text-slate-400">No positions in this filter.</div>`;
+
+      // Wire filter buttons
+      document.querySelectorAll('.pf-btn').forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll('.pf-btn').forEach(b => b.className = 'pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800');
+          btn.className = 'pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950';
+          renderPortfolio(btn.dataset.filter);
+        };
+      });
+    }
+
+    function renderActivity(filter = 'all') {
+      const list = APP.predictions
+        .map(p => ({
+          ...p,
+          type: p.status === 'active' ? 'trade' : 'resolution',
+          title: `${getMarketById(p.market_id)?.title || p.market_id}`,
+          subtitle: `${getOutcomeTitle(getMarketById(p.market_id), p.outcome_id)} @ ${p.odds_at_prediction}%`,
+          amount: p.status === 'active' ? `-$${p.stake_amount.toLocaleString()}` : `+$${p.actual_return.toLocaleString()}`
+        }))
+        .filter(a => filter === 'all' ? true : a.type === filter)
+        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+
+      const html = list.map(a => `
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-4">
+          <div class="flex items-start justify-between">
+            <div>
+              <h3 class="text-white font-semibold">${a.type === 'trade' ? 'Opened position: ' : 'Resolution: '}${a.title}</h3>
+              <p class="text-slate-400 text-sm">${a.subtitle}</p>
+              <p class="text-slate-500 text-xs mt-1">${new Date(a.created_at).toLocaleString()}</p>
+            </div>
+            <div class="text-right">
+              <div class="text-sm font-bold ${a.status === 'won' ? 'text-green-400' : a.status === 'lost' ? 'text-red-400' : 'text-slate-300'}">${a.amount}</div>
+              <span class="px-2 py-1 rounded-lg text-xs font-semibold ${a.type === 'trade' ? 'bg-indigo-500/10 text-indigo-300' : 'bg-yellow-500/10 text-yellow-300'}">${a.type.toUpperCase()}</span>
+            </div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('activityContent').innerHTML = html || `<div class="text-slate-400">No activity.</div>`;
+
+      // Wire filter buttons
+      document.querySelectorAll('.af-btn').forEach(btn => {
+        btn.onclick = () => {
+          document.querySelectorAll('.af-btn').forEach(b => b.className = 'af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800');
+          btn.className = 'af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950';
+          renderActivity(btn.dataset.afilter);
+        };
+      });
+    }
+
+    function showPortfolio() {
+      hideAllViews();
+      document.getElementById('portfolioView').classList.remove('hidden');
+      loadBackendData().then(() => renderPortfolio('all'));
+    }
+
+    function showActivity() {
+      hideAllViews();
+      document.getElementById('activityView').classList.remove('hidden');
+      loadBackendData().then(() => renderActivity('all'));
+    }
+
+    function renderDashboard() {
+      // Stats
+      const invested = APP.predictions.reduce((s, p) => s + p.stake_amount, 0);
+      const realized = APP.predictions.filter(p => p.status !== 'active').reduce((s, p) => s + (p.actual_return - p.stake_amount), 0);
+      const activeCount = APP.predictions.filter(p => p.status === 'active').length;
+      const marketsCount = APP.markets.length;
+      document.getElementById('dbStats').innerHTML = `
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="text-slate-400 text-sm">Invested</div>
+          <div class="text-3xl font-bold text-white">${fmtMoney(invested)}</div>
+        </div>
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="text-slate-400 text-sm">Realized P/L</div>
+          <div class="text-3xl font-bold ${realized>=0?'text-green-400':'text-red-400'}">${fmtMoney(realized)}</div>
+        </div>
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="text-slate-400 text-sm">Active Positions</div>
+          <div class="text-3xl font-bold text-white">${activeCount}</div>
+        </div>
+        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+          <div class="text-slate-400 text-sm">Markets</div>
+          <div class="text-3xl font-bold text-white">${marketsCount}</div>
+        </div>`;
+
+      // Buying power = arbitrary demo value based on invested
+      const buyingPower = Math.max(100, Math.round(invested * 0.045));
+      document.getElementById('dbBuyingPower').textContent = fmtMoney(buyingPower);
+
+      // Positions Snapshot
+      const posHtml = APP.predictions.slice(0, 5).map(p => {
+        const m = APP.markets.find(x => x.id === p.market_id);
+        const title = m?.title || p.market_id;
+        const outcome = (m?.outcomes||[]).find(o=>o.id===p.outcome_id)?.title || p.outcome_id;
+        return `
+          <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
+            <div>
+              <div class="text-white font-semibold">${title}</div>
+              <div class="text-slate-400 text-sm">${outcome} @ ${p.odds_at_prediction}%</div>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-slate-300">Stake</div>
+              <div class="text-lg font-bold">${fmtMoney(p.stake_amount)}</div>
+            </div>
+          </div>`;
+      }).join('');
+      document.getElementById('dbPositions').innerHTML = posHtml || `<div class="text-slate-400">No positions yet.</div>`;
+
+      // Trending Markets Snapshot
+      const trending = [...APP.markets].sort((a,b)=>(b.total_volume||0)-(a.total_volume||0)).slice(0,5);
+      const trHtml = trending.map(m => `
+        <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
+          <div>
+            <div class="text-white font-semibold">${m.title}</div>
+            <div class="text-slate-400 text-sm">${m.category}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-slate-300">Volume</div>
+            <div class="text-lg font-bold text-yellow-400">$${(m.total_volume||0).toLocaleString()}</div>
+          </div>
+        </div>`).join('');
+      document.getElementById('dbTrending').innerHTML = trHtml || `<div class="text-slate-400">No market data.</div>`;
+
+      // Recent Activity
+      const acts = APP.predictions
+        .map(p => ({
+          title: APP.markets.find(m=>m.id===p.market_id)?.title || p.market_id,
+          subtitle: `${(APP.markets.find(m=>m.id===p.market_id)?.outcomes||[]).find(o=>o.id===p.outcome_id)?.title||p.outcome_id} @ ${p.odds_at_prediction}%`,
+          created_at: p.created_at,
+          amount: p.status==='active'?`-$${p.stake_amount.toLocaleString()}`:`+$${p.actual_return.toLocaleString()}`,
+          status: p.status
+        }))
+        .sort((a,b)=>new Date(b.created_at)-new Date(a.created_at))
+        .slice(0,6);
+      const aHtml = acts.map(a=>`
+        <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
+          <div>
+            <div class="text-white font-semibold">${a.title}</div>
+            <div class="text-slate-400 text-sm">${a.subtitle}</div>
+            <div class="text-slate-500 text-xs mt-1">${new Date(a.created_at).toLocaleString()}</div>
+          </div>
+          <div class="text-right ${a.status==='won'?'text-green-400':a.status==='lost'?'text-red-400':'text-slate-300'} font-bold">${a.amount}</div>
+        </div>`).join('');
+      document.getElementById('dbActivity').innerHTML = aHtml || `<div class="text-slate-400">No activity.</div>`;
+    }
+
+    function showDashboard() {
+      hideAllViews();
+      document.getElementById('dashboardView').classList.remove('hidden');
+      loadBackendData().then(() => renderDashboard());
+    }
+
+    // Settings & Profile
+    function readSettings() {
+      try { return JSON.parse(localStorage.getItem('samsa.settings')||'{}'); } catch { return {}; }
+    }
+    function writeSettings(s) { localStorage.setItem('samsa.settings', JSON.stringify(s)); }
+
+    function showSettings() {
+      hideAllViews();
+      let html = `
+        <div id="settingsView" class="max-w-7xl mx-auto p-6 lg:p-8">
+          <div class="mb-8">
+            <h2 class="text-2xl font-bold text-white mb-2">Settings</h2>
+            <p class="text-slate-400">Customize your experience</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+              <h3 class="text-white font-semibold mb-4">Preferences</h3>
+              <label class="flex items-center justify-between mb-3">
+                <span class="text-slate-300">Compact mode</span>
+                <input id="setCompact" type="checkbox" class="h-5 w-5" />
+              </label>
+              <label class="block mb-3">
+                <span class="text-slate-300">Currency</span>
+                <select id="setCurrency" class="mt-1 w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3">
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                </select>
+              </label>
+              <label class="block mb-3">
+                <span class="text-slate-300">Default page</span>
+                <select id="setDefaultPage" class="mt-1 w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3">
+                  <option value="markets">Markets</option>
+                  <option value="dashboard">Dashboard</option>
+                  <option value="portfolio">Portfolio</option>
+                </select>
+              </label>
+              <label class="flex items-center justify-between">
+                <span class="text-slate-300">Notifications</span>
+                <input id="setNotifications" type="checkbox" class="h-5 w-5" />
+              </label>
+              <div class="mt-4 text-sm text-slate-400">Money preview: <span id="moneyPreview" class="font-semibold text-white"></span></div>
+              <div class="mt-4 flex gap-2">
+                <button id="resetSettings" class="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700">Reset</button>
+              </div>
+            </div>
+            <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+              <h3 class="text-white font-semibold mb-4">About</h3>
+              <p class="text-slate-400">Version 1.0 • Samsa Prediction Markets</p>
+              <div class="mt-4">
+                <button onclick="navigateTo('dashboard')" class="px-3 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold">Go to Dashboard</button>
+              </div>
+            </div>
+          </div>
+          <div class="mt-6">
+            <button id="saveSettings" class="px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold">Save Settings</button>
+          </div>
+        </div>`;
+      const container = document.querySelector('.main-content');
+      const existing = document.getElementById('settingsView'); if (existing) existing.remove();
+      const temp = document.createElement('div'); temp.innerHTML = html; container.appendChild(temp.firstChild);
+      const s = readSettings();
+      document.getElementById('setCompact').checked = !!s.compact;
+      document.getElementById('setCurrency').value = s.currency || 'USD';
+      document.getElementById('setDefaultPage').value = s.defaultPage || 'markets';
+      document.getElementById('setNotifications').checked = !!s.notifications;
+      const updatePreview = () => { document.getElementById('moneyPreview').textContent = fmtMoney(123456.78); };
+      updatePreview();
+      document.getElementById('setCurrency').addEventListener('change', updatePreview);
+      document.getElementById('saveSettings').onclick = () => {
+        const newS = {
+          compact: document.getElementById('setCompact').checked,
+          currency: document.getElementById('setCurrency').value,
+          defaultPage: document.getElementById('setDefaultPage').value,
+          notifications: document.getElementById('setNotifications').checked
+        };
+        writeSettings(newS);
+        document.body.classList.toggle('compact', !!newS.compact);
+        alert('Settings saved');
+      };
+      document.getElementById('resetSettings').onclick = () => { localStorage.removeItem('samsa.settings'); alert('Settings reset'); showSettings(); };
+    }
+
+    function showProfile() {
+      hideAllViews();
+      loadBackendData().then(() => {
+        const name = (readSettings().displayName)||'Demo User';
+        const total = APP.predictions.length;
+        const won = APP.predictions.filter(p=>p.status==='won').length;
+        const lost = APP.predictions.filter(p=>p.status==='lost').length;
+        const winRate = total? Math.round((won/(won+lost||1))*100):0;
+        const invested = APP.predictions.reduce((s,p)=>s+p.stake_amount,0);
+        const realized = APP.predictions.filter(p=>p.status!=='active').reduce((s,p)=>s+(p.actual_return-p.stake_amount),0);
+        const view = `
+          <div id="profileView" class="max-w-7xl mx-auto p-6 lg:p-8">
+            <div class="mb-8 flex items-center justify-between">
+              <div>
+                <h2 class="text-2xl font-bold text-white mb-1">${name}</h2>
+                <p class="text-slate-400">demo@samsa.local</p>
+              </div>
+              <div class="flex gap-2">
+                <button id="toPortfolio" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700">Open Portfolio</button>
+                <button id="exportData" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700">Export Predictions</button>
+              </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8" id="pfStats"></div>
+            <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
+              <h3 class="text-white font-semibold mb-4">Edit profile</h3>
+              <label class="block mb-3">
+                <span class="text-slate-300">Display name</span>
+                <input id="pfName" type="text" class="mt-1 w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3" value="${name}" />
+              </label>
+              <div class="flex gap-2">
+                <button id="saveProfile" class="px-3 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold">Save</button>
+                <button id="cancelProfile" class="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700">Cancel</button>
+              </div>
+            </div>
+          </div>`;
+        const container = document.querySelector('.main-content');
+        const existing = document.getElementById('profileView'); if (existing) existing.remove();
+        const temp = document.createElement('div'); temp.innerHTML = view; container.appendChild(temp.firstChild);
+        document.getElementById('pfStats').innerHTML = `
+          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6"><div class="text-slate-400 text-sm">Positions</div><div class="text-3xl font-bold text-white">${total}</div></div>
+          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6"><div class="text-slate-400 text-sm">Win Rate</div><div class="text-3xl font-bold text-white">${winRate}%</div></div>
+          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6"><div class="text-slate-400 text-sm">Invested</div><div class="text-3xl font-bold text-white">${fmtMoney(invested)}</div></div>
+          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6"><div class="text-slate-400 text-sm">Realized P/L</div><div class="text-3xl font-bold ${realized>=0?'text-green-400':'text-red-400'}">${fmtMoney(realized)}</div></div>`;
+        document.getElementById('saveProfile').onclick = () => { const s = readSettings(); s.displayName = (document.getElementById('pfName').value||'').trim() || 'Demo User'; writeSettings(s); showProfile(); };
+        document.getElementById('cancelProfile').onclick = () => navigateTo('dashboard');
+        document.getElementById('toPortfolio').onclick = () => navigateTo('portfolio');
+        document.getElementById('exportData').onclick = () => {
+          const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(APP.predictions, null, 2));
+          const dl = document.createElement('a'); dl.setAttribute('href', dataStr); dl.setAttribute('download', 'predictions.json'); dl.click();
+        };
+      });
+    }
+
+    function renderLeaderboard() {
+      // Top markets by total_volume
+      const markets = [...APP.markets].sort((a, b) => (b.total_volume || 0) - (a.total_volume || 0)).slice(0, 5);
+      const mHtml = markets.map(m => `
+        <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
+          <div>
+            <h4 class="text-white font-semibold">${m.title}</h4>
+            <p class="text-slate-400 text-sm">${m.category} • ${m.status}</p>
+          </div>
+          <div class="text-right">
+            <div class="text-sm text-slate-300">Total Volume</div>
+            <div class="text-lg font-bold text-yellow-400">$${(m.total_volume || 0).toLocaleString()}</div>
+          </div>
+        </div>
+      `).join('');
+      document.getElementById('lbMarkets').innerHTML = mHtml || `<div class="text-slate-400">No market data.</div>`;
+
+      // Top categories by aggregated volume
+      const catMap = {};
+      APP.markets.forEach(m => { catMap[m.category] = (catMap[m.category] || 0) + (m.total_volume || 0); });
+      const cats = Object.entries(catMap).sort((a, b) => b[1] - a[1]).slice(0, 5);
+      const cHtml = cats.map(([cat, vol]) => `
+        <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
+          <div class="text-white font-semibold">${cat}</div>
+          <div class="text-lg font-bold text-yellow-400">$${vol.toLocaleString()}</div>
+        </div>
+      `).join('');
+      document.getElementById('lbCategories').innerHTML = cHtml || `<div class="text-slate-400">No category data.</div>`;
+    }
+
+    function showLeaderboard() {
+      hideAllViews();
+      document.getElementById('leaderboardView').classList.remove('hidden');
+      loadBackendData().then(() => renderLeaderboard());
+    }
+
+    // --- Create Position Modal ---
+    function openCreatePosition() {
+      loadBackendData().then(() => {
+        const modal = document.getElementById('createPositionModal');
+        const mSel = document.getElementById('cpMarket');
+        const oSel = document.getElementById('cpOutcome');
+        const stake = document.getElementById('cpStake');
+        const status = document.getElementById('cpStatus');
+        status.textContent = '';
+
+        // Populate markets
+        mSel.innerHTML = APP.markets.map(m => `<option value="${m.id}">${m.title}</option>`).join('');
+        // Populate outcomes for first or selected market
+        const selectedMarket = APP.markets.find(m => m.id === mSel.value) || APP.markets[0];
+        mSel.value = selectedMarket?.id || '';
+        oSel.innerHTML = (selectedMarket?.outcomes || []).map(o => `<option value="${o.id}">${o.title}</option>`).join('');
+        stake.value = '1000';
+        updateCreatePositionPreview();
+
+        // Show
+        modal.classList.remove('hidden');
+
+        // Handlers
+        mSel.onchange = () => {
+          const m = APP.markets.find(x => x.id === mSel.value);
+          oSel.innerHTML = (m?.outcomes || []).map(o => `<option value="${o.id}">${o.title}</option>`).join('');
+          updateCreatePositionPreview();
+        };
+        oSel.onchange = updateCreatePositionPreview;
+        stake.oninput = updateCreatePositionPreview;
+      });
+    }
+
+    function closeCreatePosition() {
+      document.getElementById('createPositionModal').classList.add('hidden');
+    }
+
+    function getSelectedOutcomeProbability() {
+      const mSel = document.getElementById('cpMarket').value;
+      const oSel = document.getElementById('cpOutcome').value;
+      const m = APP.markets.find(x => x.id === mSel);
+      const o = m?.outcomes?.find(x => x.id === oSel);
+      return o ? (o.probability || 50) : 50;
+    }
+
+    function updateCreatePositionPreview() {
+      const odds = getSelectedOutcomeProbability();
+      const stake = Number(document.getElementById('cpStake').value || 0);
+      const potential = stake > 0 ? Number((stake * (100 / Math.max(odds, 1))).toFixed(2)) : 0;
+      document.getElementById('cpOdds').textContent = `${odds}%`;
+      document.getElementById('cpPotential').textContent = `$${potential.toLocaleString()}`;
+    }
+
+    async function submitCreatePosition() {
+      const market_id = document.getElementById('cpMarket').value;
+      const outcome_id = document.getElementById('cpOutcome').value;
+      const stake_amount = Number(document.getElementById('cpStake').value || 0);
+      const odds_at_prediction = getSelectedOutcomeProbability();
+      const status = document.getElementById('cpStatus');
+      status.textContent = '';
+
+      if (!market_id || !outcome_id || stake_amount <= 0) {
+        status.textContent = 'Please select market/outcome and enter a positive stake.';
+        status.className = 'text-red-400 text-sm';
+        return;
+      }
+
+      const payload = { market_id, outcome_id, stake_amount, odds_at_prediction, user_id: 'demo' };
+      const created = await postJson('/api/predictions', payload);
+
+      if (created) {
+        // Refresh predictions
+        const preds = await fetchJson('/api/predictions');
+        APP.predictions = Array.isArray(preds) ? preds : APP.predictions;
+        closeCreatePosition();
+        renderPortfolio('all');
+      } else {
+        status.textContent = 'Failed to create position. Using demo-only add.';
+        status.className = 'text-yellow-400 text-sm';
+        // Fallback: add locally
+        const potential_return = Number((stake_amount * (100 / Math.max(odds_at_prediction, 1))).toFixed(2));
+        APP.predictions.push({
+          id: `local_${Date.now()}`,
+          market_id,
+          outcome_id,
+          stake_amount,
+          odds_at_prediction,
+          potential_return,
+          status: 'active',
+          actual_return: 0,
+          user_id: 'demo',
+          created_at: new Date().toISOString()
+        });
+        closeCreatePosition();
+        renderPortfolio('all');
+      }
+    }
+
+    // Wire the create button when Portfolio view is shown
+    document.addEventListener('DOMContentLoaded', () => {
+      // Apply persisted settings
+      const s = readSettings();
+      if (s && s.compact) document.body.classList.add('compact');
+      if (s && s.defaultPage && ['markets','dashboard','portfolio'].includes(s.defaultPage)) {
+        // Navigate to preferred default page
+        navigateTo(s.defaultPage);
+      }
+
+      // Wire create position modal buttons
+      const btn = document.getElementById('createPositionBtn');
+      if (btn) btn.onclick = openCreatePosition;
+      const cancel = document.getElementById('cpCancel');
+      const submit = document.getElementById('cpSubmit');
+      const close = document.getElementById('cpClose');
+      if (cancel) cancel.onclick = closeCreatePosition;
+      if (close) close.onclick = closeCreatePosition;
+      if (submit) submit.onclick = submitCreatePosition;
+    });
   </script>
+  
+  <!-- Create Position Modal -->
+  <div id="createPositionModal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 w-full max-w-lg">
+      <div class="flex items-center justify-between mb-4">
+        <h3 class="text-xl font-bold text-white">Create Position</h3>
+        <button id="cpClose" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm text-slate-400 mb-1">Market</label>
+          <select id="cpMarket" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3"></select>
+        </div>
+        <div>
+          <label class="block text-sm text-slate-400 mb-1">Outcome</label>
+          <select id="cpOutcome" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3"></select>
+        </div>
+        <div>
+          <label class="block text-sm text-slate-400 mb-1">Stake Amount (USD)</label>
+          <input id="cpStake" type="number" min="1" step="1" value="1000" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3" />
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
+            <div class="text-slate-400 text-xs">Odds</div>
+            <div id="cpOdds" class="text-white text-lg font-semibold">--%</div>
+          </div>
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
+            <div class="text-slate-400 text-xs">Potential Return</div>
+            <div id="cpPotential" class="text-green-400 text-lg font-semibold">$0</div>
+          </div>
+        </div>
+        <div id="cpStatus" class="text-sm"></div>
+      </div>
+      <div class="mt-6 flex justify-end gap-2">
+        <button id="cpCancel" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700">Cancel</button>
+        <button id="cpSubmit" class="px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold hover:brightness-110">Create Position</button>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
