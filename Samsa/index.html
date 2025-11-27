@@ -6,205 +6,34 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Samsa</title>
   <link rel="icon" type="image/png" sizes="32x32" href="Logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Jost:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
-    }
-
-    .line-clamp-2 {
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-
-    .hidden {
-      display: none !important;
-    }
-
-    .h-16 {
-      width: auto;
-      height: 100px;
-    }
-
-    /* Sidebar Styles */
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 0;
-      height: 100vh;
-      width: 80px;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(20px);
-      border-right: 1px solid rgba(71, 85, 105, 0.3);
-      transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 1000;
-      overflow: hidden;
-    }
-
-    .sidebar:hover {
-      width: 280px;
-    }
-
-    .sidebar-content {
-      padding: 24px 0;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
-
-    .sidebar-logo {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      padding: 0;
-      white-space: nowrap;
-      flex-direction: column;
-      width: 64px;
-      position: fixed;
-      left: 8px;
-      top: 24px;
-      z-index: 1001;
-    }
-
-    .sidebar-logo-icon {
-      min-width: 72px;
-      height: 72px;
-      width: 72px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .sidebar-logo-icon img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-
-    .sidebar-logo-text {
-      font-size: 20px;
-      font-weight: 700;
-      color: white;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .sidebar:hover .sidebar-logo-text {
-      display: none;
-      opacity: 0;
-    }
-
-    .sidebar-nav {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      padding: 0 16px;
-      margin-top: 176px;
-    }
-
-    .sidebar-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 12px 16px;
-      border-radius: 12px;
-      color: #94a3b8;
-      text-decoration: none;
-      transition: color 0.2s;
-      cursor: pointer;
-      white-space: nowrap;
-      position: relative;
-      min-height: 48px;
-      min-width: 48px;
-    }
-
-    .sidebar-item:hover {
-      background: rgba(71, 85, 105, 0.2);
-      color: white;
-    }
-
-    .sidebar-item.active {
-      background: linear-gradient(135deg, rgba(234, 179, 8, 0.15) 0%, rgba(202, 138, 4, 0.15) 100%);
-      color: #eab308;
-    }
-
-    .sidebar-item-icon {
-      min-width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .sidebar-item-text {
-      font-size: 15px;
-      font-weight: 500;
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .sidebar:hover .sidebar-item-text {
-      opacity: 1;
-    }
-
-    .sidebar-footer {
-      padding: 0 16px;
-      margin-top: auto;
-    }
-
-    .main-content {
-      margin-left: 80px;
-      transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        width: 0;
-      }
-
-      .sidebar:hover {
-        width: 280px;
-      }
-
-      .main-content {
-        margin-left: 0;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body class="bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 min-h-screen">
+<body class="min-h-screen" style="background: rgb(2, 6, 23);">
   <!-- Sidebar -->
   <div class="sidebar">
     <div class="sidebar-content">
-      <div class="sidebar-logo">
-        <div class="sidebar-logo-icon cursor-pointer" onclick="navigateTo('dashboard')" title="Open Dashboard">
-          <img src="Logo.png" alt="Samsa Logo" />
-        </div>
-        <span class="sidebar-logo-text">Samsa</span>
-      </div>
-
       <nav class="sidebar-nav">
-        <a href="#" class="sidebar-item active" onclick="navigateTo('markets'); return false;">
+        <a href="#" class="sidebar-item" onclick="navigateTo('markets'); return false;">
           <div class="sidebar-item-icon">🏪</div>
           <span class="sidebar-item-text">Markets</span>
+        </a>
+        <a href="#" class="sidebar-item" onclick="navigateTo('interests'); return false;">
+          <div class="sidebar-item-icon">🔍</div>
+          <span class="sidebar-item-text">Interests</span>
         </a>
         <a href="#" class="sidebar-item" onclick="navigateTo('portfolio'); return false;">
           <div class="sidebar-item-icon">💼</div>
           <span class="sidebar-item-text">Portfolio</span>
         </a>
         <a href="#" class="sidebar-item" onclick="navigateTo('activity'); return false;">
-          <div class="sidebar-item-icon">📊</div>
+          <div class="sidebar-item-icon">📈</div>
           <span class="sidebar-item-text">Activity</span>
         </a>
         <a href="#" class="sidebar-item" onclick="navigateTo('leaderboard'); return false;">
@@ -212,7 +41,6 @@
           <span class="sidebar-item-text">Leaderboard</span>
         </a>
       </nav>
-
       <div class="sidebar-footer">
         <a href="#" class="sidebar-item" onclick="navigateTo('settings'); return false;">
           <div class="sidebar-item-icon">⚙️</div>
@@ -229,100 +57,75 @@
   <!-- Main Content -->
   <div class="main-content">
     <!-- Markets List View -->
-    <div id="marketsView" class="max-w-7xl mx-auto p-6 lg:p-8">
-      <!-- Header -->
+    <div id="marketsView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
       <div class="mb-12">
-        <div class="flex items-center gap-3 mb-4">
-          <div>
+        <div class="flex items-center justify-between mb-8">
+          <div class="cursor-pointer" onclick="navigateTo('dashboard')" title="Go to Dashboard">
             <img src="Logo-Title.png" alt="Samsa Prediction Markets" class="h-16" />
           </div>
-        </div>
-
-        <!-- Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-slate-400 text-sm font-medium mb-1">Active Markets</p>
-                <p class="text-3xl font-bold text-white">3</p>
-              </div>
-              <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-2xl">📊</div>
+          <div class="flex items-center" style="gap: 10px;">
+            <div class="relative search-container">
+              <input type="text" id="searchInput" placeholder="Search markets..."
+                class="search-input pl-12 pr-4 py-3 bg-slate-900/50 border border-slate-800 text-white placeholder:text-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500/20" />
+              <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">🔍</span>
+              <div id="searchDropdown"></div>
             </div>
-          </div>
-          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-slate-400 text-sm font-medium mb-1">Total Volume</p>
-                <p class="text-3xl font-bold text-white">$95,000</p>
+            <div class="relative category-dropdown-container">
+              <button id="categoryDropdownBtn"
+                class="px-4 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold rounded-xl hover:brightness-110 transition flex items-center gap-2 whitespace-nowrap">
+                <span id="selectedCategory">All Markets</span>
+                <span class="text-sm">▼</span>
+              </button>
+              <div id="categoryDropdown"
+                class="absolute right-0 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl z-10">
+                <button class="category-option w-full text-left px-4 py-3 text-white hover:bg-slate-800 transition"
+                  data-category="all">All Markets</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="politics">Politics</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="international">International</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="environment">Environment</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="climate">Climate</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="science">Science</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="health">Health</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="finance">Finance</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="crypto">Crypto</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="technology">Technology</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="entertainment">Entertainment</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="sports">Sports</button>
+                <button class="category-option w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  data-category="arts_and_culture">Arts and Culture</button>
               </div>
-              <div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-2xl">💰</div>
-            </div>
-          </div>
-          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-            <div class="flex items-center justify-between">
-              <div>
-                <p class="text-slate-400 text-sm font-medium mb-1">24h Volume</p>
-                <p class="text-3xl font-bold text-white">$12,450</p>
-              </div>
-              <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-2xl">⏰</div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Search and Categories -->
-      <div class="mb-8 space-y-4">
-        <div class="relative">
-          <input type="text" id="searchInput" placeholder="Search markets..."
-            class="w-full pl-12 pr-4 py-3 bg-slate-900/50 border border-slate-800 text-white placeholder:text-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500/20" />
-          <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">🔍</span>
-        </div>
-
-        <!-- Categories Bar -->
-        <div class="flex gap-2 flex-wrap bg-slate-900/50 border border-slate-800 p-2 rounded-lg">
-          <button
-            class="category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950"
-            data-category="all">All Markets</button>
-          <button
-            class="category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800"
-            data-category="politics">Politics</button>
-          <button
-            class="category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800"
-            data-category="sports">Sports</button>
-          <button
-            class="category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800"
-            data-category="finance">Finance</button>
-          <button
-            class="category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800"
-            data-category="technology">Technology</button>
-          <button
-            class="category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800"
-            data-category="crypto">Crypto</button>
-          <button
-            class="category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800"
-            data-category="entertainment">Entertainment</button>
-        </div>
-      </div>
-
-      <!-- Markets Grid -->
-      <div id="marketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="marketsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start"></div>
     </div>
 
     <!-- Market Detail View -->
     <div id="detailView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
       <button onclick="showMarkets()"
-        class="mb-6 text-slate-300 hover:text-white hover:bg-slate-800/50 px-4 py-2 rounded-lg transition-colors inline-flex items-center gap-2">
-        ← Back to Markets
-      </button>
-
+        class="mb-6 text-slate-300 hover:text-white hover:bg-slate-800/50 px-4 py-2 rounded-lg transition-colors inline-flex items-center gap-2">←
+        Back to Markets</button>
       <div id="detailContent"></div>
     </div>
 
     <!-- Dashboard View -->
     <div id="dashboardView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
       <div class="mb-8">
-        <h2 class="text-2xl font-bold text-white mb-2">Dashboard</h2>
-        <p class="text-slate-400">Overview of markets, portfolio, and activity</p>
+        <div class="cursor-pointer" onclick="navigateTo('dashboard')" title="Go to Dashboard">
+          <img src="Logo-Title.png" alt="Samsa Prediction Markets" class="h-16" />
+        </div>
       </div>
 
       <!-- Top row stats -->
@@ -333,7 +136,6 @@
         <div class="lg:col-span-2 bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
           <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">📉 Portfolio Balance</h3>
           <div class="h-48 bg-slate-800/40 rounded-xl flex items-end gap-1 p-2">
-            <!-- simple sparkline bars -->
             <div class="flex-1 h-24 bg-yellow-600/40 rounded"></div>
             <div class="flex-1 h-16 bg-yellow-600/40 rounded"></div>
             <div class="flex-1 h-32 bg-yellow-600/40 rounded"></div>
@@ -348,7 +150,7 @@
         <!-- Buying power style card -->
         <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
           <h3 class="text-sm font-medium text-slate-400">Buying power</h3>
-          <div id="dbBuyingPower" class="text-2xl font-bold text-white mt-2">$0</div>
+          <div id="dbBuyingPower" class="text-2xl font-bold text-yellow-400 mt-2">$10,000</div>
         </div>
       </div>
 
@@ -356,1228 +158,367 @@
         <!-- Positions Snapshot -->
         <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
           <h3 class="text-xl font-semibold text-white mb-4">📋 Positions</h3>
-          <div id="dbPositions" class="space-y-3"></div>
+          <div id="dbPositions" class="space-y-3">
+            <p class="text-slate-400">No active positions</p>
+          </div>
         </div>
 
         <!-- Top Markets Snapshot -->
         <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
           <h3 class="text-xl font-semibold text-white mb-4">🔥 Trending Markets</h3>
-          <div id="dbTrending" class="space-y-3"></div>
+          <div id="dbTrending" class="space-y-3">
+            <p class="text-slate-400">Loading...</p>
+          </div>
         </div>
       </div>
 
       <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 mt-8">
         <h3 class="text-xl font-semibold text-white mb-4">🕒 Recent Activity</h3>
-        <div id="dbActivity" class="space-y-3"></div>
+        <div id="dbActivity" class="space-y-3">
+          <p class="text-slate-400">No recent activity</p>
+        </div>
       </div>
     </div>
 
     <!-- Portfolio View -->
     <div id="portfolioView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
       <div class="mb-8 flex items-center justify-between">
-        <div>
-          <h2 class="text-2xl font-bold text-white mb-2">Portfolio Overview</h2>
-          <p class="text-slate-400">Your active predictions, balance, and performance</p>
+        <div class="cursor-pointer" onclick="navigateTo('dashboard')" title="Go to Dashboard">
+          <img src="Logo-Title.png" alt="Samsa Prediction Markets" class="h-16" />
         </div>
-        <button id="createPositionBtn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold shadow hover:brightness-110 transition">
-          + Create Position
-        </button>
+        <button id="createPositionBtn"
+          class="px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold shadow hover:brightness-110 transition">+
+          Create Position</button>
       </div>
 
       <!-- Stats -->
-      <div id="portfolioStats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8"></div>
+      <div id="portfolioStats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <p class="text-slate-400 text-sm mb-2">Portfolio Value</p>
+          <p class="text-3xl font-bold text-yellow-400">$12,450</p>
+          <p class="text-green-400 text-sm mt-2">+5.2% today</p>
+        </div>
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <p class="text-slate-400 text-sm mb-2">Active Positions</p>
+          <p class="text-3xl font-bold text-yellow-400">8</p>
+          <p class="text-slate-400 text-sm mt-2">3 winning</p>
+        </div>
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <p class="text-slate-400 text-sm mb-2">Total P&L</p>
+          <p class="text-3xl font-bold text-green-400">+$2,450</p>
+          <p class="text-slate-400 text-sm mt-2">All time</p>
+        </div>
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <p class="text-slate-400 text-sm mb-2">Win Rate</p>
+          <p class="text-3xl font-bold text-yellow-400">68%</p>
+          <p class="text-slate-400 text-sm mt-2">Last 30 days</p>
+        </div>
+      </div>
 
       <!-- Filters -->
       <div class="mb-6">
         <div class="flex gap-2 flex-wrap bg-slate-900/50 border border-slate-800 p-2 rounded-lg">
-          <button data-filter="all" class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950">All</button>
-          <button data-filter="active" class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Active</button>
-          <button data-filter="won" class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Won</button>
-          <button data-filter="lost" class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Lost</button>
+          <button data-filter="all"
+            class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950">All</button>
+          <button data-filter="active"
+            class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Active</button>
+          <button data-filter="won"
+            class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Won</button>
+          <button data-filter="lost"
+            class="pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Lost</button>
         </div>
       </div>
 
       <!-- Holdings Grid -->
-      <div id="portfolioContent" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      <div id="portfolioContent" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <p class="text-slate-400 col-span-full text-center py-8">No positions yet. Start predicting!</p>
+      </div>
     </div>
 
     <!-- Activity View -->
     <div id="activityView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
       <div class="mb-8">
-        <h2 class="text-2xl font-bold text-white mb-2">Activity</h2>
-        <p class="text-slate-400">Recent trades, resolutions, and updates</p>
+        <div class="cursor-pointer" onclick="navigateTo('dashboard')" title="Go to Dashboard">
+          <img src="Logo-Title.png" alt="Samsa Prediction Markets" class="h-16" />
+        </div>
       </div>
 
       <!-- Filters -->
       <div class="mb-6">
         <div class="flex gap-2 flex-wrap bg-slate-900/50 border border-slate-800 p-2 rounded-lg">
-          <button data-afilter="all" class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950">All</button>
-          <button data-afilter="trade" class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Trades</button>
-          <button data-afilter="resolution" class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Resolutions</button>
+          <button data-afilter="all"
+            class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950">All</button>
+          <button data-afilter="trade"
+            class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Trades</button>
+          <button data-afilter="resolution"
+            class="af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800">Resolutions</button>
         </div>
       </div>
 
       <!-- Activity List -->
-      <div id="activityContent" class="space-y-4"></div>
+      <div id="activityContent" class="space-y-4">
+        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+          <h2 class="text-xl font-bold text-white mb-4">Recent Activity</h2>
+          <p class="text-slate-400">No recent activity to display.</p>
+        </div>
+      </div>
     </div>
 
     <!-- Leaderboard View -->
     <div id="leaderboardView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
       <div class="mb-8">
-        <h2 class="text-2xl font-bold text-white mb-2">Leaderboard</h2>
-        <p class="text-slate-400">Top markets and categories by volume</p>
+        <div class="cursor-pointer" onclick="navigateTo('dashboard')" title="Go to Dashboard">
+          <img src="Logo-Title.png" alt="Samsa Prediction Markets" class="h-16" />
+        </div>
       </div>
-
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <!-- Top Markets -->
         <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
           <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">📈 Top Markets</h3>
-          <div id="lbMarkets" class="space-y-3"></div>
+          <div id="lbMarkets" class="space-y-3">
+            <p class="text-slate-400">Coming soon...</p>
+          </div>
         </div>
-
-        <!-- Top Categories -->
         <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
           <h3 class="text-xl font-semibold text-white mb-4 flex items-center gap-2">🏷️ Top Categories</h3>
-          <div id="lbCategories" class="space-y-3"></div>
+          <div id="lbCategories" class="space-y-3">
+            <p class="text-slate-400">Coming soon...</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    // Navigation function
-    function navigateTo(page) {
-      const clickedItem = (typeof event !== 'undefined' && event && event.target) ? event.target.closest('.sidebar-item') : null;
-      // Remove active class from all sidebar items
-      document.querySelectorAll('.sidebar-item').forEach(item => item.classList.remove('active'));
-      // Add active class to clicked item when available
-      if (clickedItem) clickedItem.classList.add('active');
-
-      if (page === 'markets') {
-        showMarkets();
-      } else if (page === 'dashboard') {
-        showDashboard();
-      } else if (page === 'portfolio') {
-        showPortfolio();
-      } else if (page === 'activity') {
-        showActivity();
-      } else if (page === 'leaderboard') {
-        showLeaderboard();
-      } else if (page === 'settings') {
-        showSettings();
-      } else if (page === 'profile') {
-        showProfile();
-      } else {
-        alert(`${page.charAt(0).toUpperCase() + page.slice(1)} page - Coming soon!`);
-      }
-    }
-
-    const markets = [
-      {
-        id: 1,
-        title: 'Will Bitcoin reach $100,000 by end of 2025?',
-        description: 'Predict whether Bitcoin will hit the $100k milestone before December 31, 2025',
-        category: 'crypto',
-        image: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=800',
-        closeDate: 'Dec 31, 2025',
-        outcomes: [
-          { id: 1, title: 'Yes', probability: 65, stake: 15000, color: 'green' },
-          { id: 2, title: 'No', probability: 35, stake: 8000, color: 'red' }
-        ],
-        volume: 23000,
-        volume24h: 3200,
-        traders: 1247,
-        news: [
-          { title: 'Bitcoin ETF sees record inflows', source: 'CoinDesk', time: '2h ago' },
-          { title: 'Institutional adoption accelerates', source: 'Bloomberg', time: '5h ago' },
-          { title: 'Analysts predict bull run continuation', source: 'CryptoNews', time: '1d ago' }
-        ]
-      },
-      {
-        id: 2,
-        title: 'Who will win the 2025 NBA Championship?',
-        description: 'Predict the winner of the 2025 NBA Finals',
-        category: 'sports',
-        image: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=800',
-        closeDate: 'Jun 1, 2025',
-        outcomes: [
-          { id: 1, title: 'LA Lakers', probability: 30, stake: 12000, color: 'purple' },
-          { id: 2, title: 'Boston Celtics', probability: 25, stake: 10000, color: 'green' },
-          { id: 3, title: 'Golden State Warriors', probability: 20, stake: 8000, color: 'blue' },
-          { id: 4, title: 'Other Team', probability: 25, stake: 10000, color: 'gray' }
-        ],
-        volume: 40000,
-        volume24h: 5600,
-        traders: 2134,
-        news: [
-          { title: 'Lakers strengthen roster with key trade', source: 'ESPN', time: '1h ago' },
-          { title: 'Celtics maintain top seed in East', source: 'NBA.com', time: '4h ago' },
-          { title: 'Warriors injury update affects odds', source: 'The Athletic', time: '8h ago' }
-        ]
-      },
-      {
-        id: 3,
-        title: 'Will AI surpass human performance in coding by 2026?',
-        description: 'Will AI models achieve superhuman performance on standard coding benchmarks?',
-        category: 'technology',
-        image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800',
-        closeDate: 'Jan 1, 2026',
-        outcomes: [
-          { id: 1, title: 'Yes', probability: 55, stake: 18000, color: 'green' },
-          { id: 2, title: 'No', probability: 45, stake: 14000, color: 'red' }
-        ],
-        volume: 32000,
-        volume24h: 4100,
-        traders: 1876,
-        news: [
-          { title: 'New AI model shows 40% improvement', source: 'TechCrunch', time: '3h ago' },
-          { title: 'Major tech companies invest in AI coding', source: 'Wired', time: '6h ago' },
-          { title: 'Benchmark results exceed expectations', source: 'ArXiv', time: '12h ago' }
-        ]
-      }
-    ];
-
-    const categoryColors = {
-      crypto: 'from-orange-500 to-red-600',
-      sports: 'from-green-500 to-emerald-600',
-      technology: 'from-purple-500 to-pink-600',
-      politics: 'from-blue-500 to-indigo-600',
-      finance: 'from-amber-500 to-orange-600',
-      entertainment: 'from-pink-500 to-rose-600'
-    };
-
-    let currentCategory = 'all';
-
-    function renderMarkets() {
-      const grid = document.getElementById('marketsGrid');
-      grid.innerHTML = markets.map(market => `
-        <div class="market-card group relative overflow-hidden bg-slate-900/50 backdrop-blur-xl border border-slate-800 hover:border-yellow-500/50 transition-all duration-300 hover:shadow-2xl hover:shadow-yellow-500/10 cursor-pointer h-full rounded-2xl" data-category="${market.category}" onclick="showDetail(${market.id})">
-          <div class="absolute inset-0 bg-gradient-to-br from-yellow-500/0 to-yellow-600/0 group-hover:from-yellow-500/5 group-hover:to-yellow-600/5 transition-all duration-300"></div>
-          
-          <div class="relative p-6">
-            <div class="flex items-start justify-between mb-4">
-              <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${categoryColors[market.category]} text-white">
-                ${market.category}
-              </span>
-              <span class="text-xs text-green-400 font-medium">🟢 Live</span>
+    <!-- Interests View -->
+    <div id="interestsView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
+      <div class="mb-12">
+        <div class="flex items-center justify-between mb-8">
+          <div class="cursor-pointer" onclick="navigateTo('dashboard')" title="Go to Dashboard">
+            <img src="Logo-Title.png" alt="Samsa Prediction Markets" class="h-16" />
+          </div>
+          <div class="flex items-center" style="gap: 10px;">
+            <div class="relative search-container">
+              <input type="text" id="interestsSearchInput" placeholder="Search interests..."
+                class="search-input pl-12 pr-4 py-3 bg-slate-900/50 border border-slate-800 text-white placeholder:text-slate-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500/20" />
+              <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400">🔍</span>
+              <div id="interestsSearchDropdown"></div>
             </div>
-
-            <div class="mb-4 rounded-xl overflow-hidden">
-              <img src="${market.image}" alt="${market.title}" class="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300" />
-            </div>
-
-            <h3 class="text-lg font-bold text-white mb-2 line-clamp-2 group-hover:text-yellow-400 transition-colors duration-200">
-              ${market.title}
-            </h3>
-
-            <p class="text-sm text-slate-400 mb-4 line-clamp-2">${market.description}</p>
-
-            <div class="bg-slate-800/50 rounded-xl p-4 mb-4">
-              <div class="flex items-center justify-between mb-2">
-                <span class="text-xs text-slate-400 font-medium">Leading prediction</span>
-                <span class="text-indigo-400">📈</span>
-              </div>
-              <p class="text-white font-semibold mb-1">${market.outcomes[0].title}</p>
-              <div class="flex items-center gap-2">
-                <div class="flex-1 bg-slate-700 rounded-full h-2 overflow-hidden">
-                  <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 h-full rounded-full transition-all duration-300" style="width: ${market.outcomes[0].probability}%"></div>
-                </div>
-                <span class="text-yellow-400 font-bold text-sm">${market.outcomes[0].probability}%</span>
-              </div>
-            </div>
-
-            <div class="space-y-2 pt-4 border-t border-slate-800">
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-slate-400">Total Volume</span>
-                <span class="text-white font-medium">$${market.volume.toLocaleString()}</span>
-              </div>
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-slate-400">24h Volume</span>
-                <span class="text-green-400 font-medium">+$${market.volume24h.toLocaleString()}</span>
-              </div>
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-slate-400">Traders</span>
-                <span class="text-white font-medium">${market.traders.toLocaleString()}</span>
-              </div>
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-slate-400">Closes</span>
-                <span class="text-slate-300">${market.closeDate}</span>
+            <div class="relative category-dropdown-container">
+              <button
+                class="px-4 py-3 bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold rounded-xl hover:brightness-110 transition flex items-center gap-2 whitespace-nowrap">
+                <span>All Interests</span>
+                <span class="text-sm">▼</span>
+              </button>
+              <div class="absolute right-0 w-48 bg-slate-900 border border-slate-800 rounded-xl shadow-xl z-10"
+                id="interestsCategoryDropdown">
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-white hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('all')">All Interests</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('politics')">Politics</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('international')">International</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('environment')">Environment</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('climate')">Climate</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('science')">Science</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('health')">Health</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('finance')">Finance</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('sports')">Sports</button>
+                <button
+                  class="interests-category-btn w-full text-left px-4 py-3 text-slate-300 hover:bg-slate-800 transition"
+                  onclick="filterInterestsByCategory('arts_and_culture')">Arts & Culture</button>
               </div>
             </div>
           </div>
         </div>
-      `).join('');
-    }
+      </div>
+      <div id="interestsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+    </div>
 
-    function showDetail(marketId) {
-      const market = markets.find(m => m.id === marketId);
-      document.getElementById('marketsView').classList.add('hidden');
-      document.getElementById('detailView').classList.remove('hidden');
+    <!-- Subcategory Detail View -->
+    <div id="subcategoryView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
+      <div class="mb-8">
+        <button onclick="showInterests()"
+          class="mb-6 text-slate-300 hover:text-white hover:bg-slate-800/50 px-4 py-2 rounded-lg transition-colors inline-flex items-center gap-2">←
+          Back to Interests</button>
+        <div id="subcategoryHeader" class="flex items-center gap-4 mb-6">
+          <!-- Dynamic header content -->
+        </div>
+      </div>
 
-      document.getElementById('detailContent').innerHTML = `
-        <!-- Market Header -->
-        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 mb-8">
-          ${market.image ? `
-            <div class="mb-6 rounded-2xl overflow-hidden">
-              <img src="${market.image}" alt="${market.title}" class="w-full h-64 object-cover" />
-            </div>
-          ` : ''}
-          
-          <div class="flex items-start justify-between mb-4">
-            <div class="flex-1">
-              <div class="flex items-center gap-3 mb-3">
-                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-gradient-to-r ${categoryColors[market.category]} text-white">
-                  ${market.category}
-                </span>
-                <span class="text-xs text-green-400 font-medium flex items-center gap-1">
-                  <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                  Live Trading
-                </span>
-              </div>
-              <h1 class="text-4xl font-bold text-white mb-4">${market.title}</h1>
-              <p class="text-lg text-slate-300">${market.description}</p>
-            </div>
+      <!-- Subcategory Stats -->
+      <div id="subcategoryStats" class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+        <!-- Dynamic stats -->
+      </div>
+
+      <!-- Subcategory Content -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- About Section -->
+          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+            <h3 class="text-xl font-bold text-white mb-4">About</h3>
+            <p id="subcategoryAbout" class="text-slate-300">Loading...</p>
           </div>
 
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-            <div class="bg-slate-800/50 rounded-xl p-4">
-              <p class="text-slate-400 text-sm mb-1">Total Volume</p>
-              <p class="text-2xl font-bold text-white">$${market.volume.toLocaleString()}</p>
-            </div>
-            <div class="bg-slate-800/50 rounded-xl p-4">
-              <p class="text-slate-400 text-sm mb-1">24h Volume</p>
-              <p class="text-2xl font-bold text-green-400">$${market.volume24h.toLocaleString()}</p>
-            </div>
-            <div class="bg-slate-800/50 rounded-xl p-4">
-              <p class="text-slate-400 text-sm mb-1">Traders</p>
-              <p class="text-2xl font-bold text-white">${market.traders.toLocaleString()}</p>
-            </div>
-            <div class="bg-slate-800/50 rounded-xl p-4">
-              <p class="text-slate-400 text-sm mb-1">Closes</p>
-              <p class="text-xl font-bold text-white">${market.closeDate}</p>
+          <!-- Active Markets Section -->
+          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+            <h3 class="text-xl font-bold text-white mb-4">Active Markets</h3>
+            <div id="subcategoryMarkets" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Dynamic markets list -->
             </div>
           </div>
         </div>
 
-        <div class="grid lg:grid-cols-3 gap-8">
-          <!-- Left Column: Outcomes & Prediction -->
-          <div class="lg:col-span-2 space-y-8">
-            <!-- Live Odds -->
-            <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-              <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <span>📊</span> Live Odds & Prediction
-              </h2>
-              <div class="space-y-4">
-                ${market.outcomes.map((outcome, idx) => `
-                  <div class="bg-slate-800/50 rounded-2xl p-5 border border-slate-700 hover:border-yellow-500/50 transition-all duration-200">
-                    <div class="flex items-start justify-between mb-3">
-                      <div class="flex-1">
-                        <h3 class="text-lg font-semibold text-white mb-2">${outcome.title}</h3>
-                        <div class="flex items-center gap-3">
-                          <span class="text-3xl font-bold text-yellow-400">${outcome.probability}%</span>
-                          <span class="text-sm text-slate-400">$${outcome.stake.toLocaleString()} staked</span>
-                        </div>
-                      </div>
-                      <button onclick="openPredictionForm(${market.id}, ${outcome.id})" class="bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-slate-950 font-semibold px-4 py-2 rounded-lg transition-all">
-                        Predict
-                      </button>
-                    </div>
-                    <div class="relative h-2 bg-slate-700 rounded-full overflow-hidden">
-                      <div class="absolute top-0 left-0 h-full bg-gradient-to-r from-yellow-500 to-yellow-600 rounded-full transition-all duration-500" style="width: ${outcome.probability}%"></div>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
-            </div>
-
-            <!-- Market Analytics -->
-            <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-              <h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-2">
-                <span>📈</span> Market Analytics
-              </h2>
-              <div class="space-y-4">
-                <div class="bg-slate-800/50 rounded-xl p-4">
-                  <div class="flex justify-between items-center mb-2">
-                    <span class="text-slate-400">Volume Trend (24h)</span>
-                    <span class="text-green-400 font-semibold">+${((market.volume24h / market.volume) * 100).toFixed(1)}%</span>
-                  </div>
-                  <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" style="width: ${(market.volume24h / market.volume) * 100}%"></div>
-                  </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                  <div class="bg-slate-800/50 rounded-xl p-4">
-                    <p class="text-slate-400 text-sm mb-1">Avg Stake</p>
-                    <p class="text-xl font-bold text-white">$${(market.volume / market.traders).toFixed(0)}</p>
-                  </div>
-                  <div class="bg-slate-800/50 rounded-xl p-4">
-                    <p class="text-slate-400 text-sm mb-1">Market Depth</p>
-                    <p class="text-xl font-bold text-white">High</p>
-                  </div>
-                </div>
-                <div class="bg-slate-800/50 rounded-xl p-4">
-                  <p class="text-slate-400 text-sm mb-2">Probability Distribution</p>
-                  <div class="flex gap-1 h-20">
-                    ${market.outcomes.map(o => `
-                      <div class="flex-1 bg-gradient-to-t ${o.color === 'green' ? 'from-green-500 to-green-600' : o.color === 'red' ? 'from-red-500 to-red-600' : 'from-blue-500 to-blue-600'} rounded-t" style="height: ${o.probability}%"></div>
-                    `).join('')}
-                  </div>
-                  <div class="flex justify-between mt-2">
-                    ${market.outcomes.map(o => `
-                      <span class="text-xs text-slate-400">${o.title}</span>
-                    `).join('')}
-                  </div>
-                </div>
-              </div>
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <!-- News Section -->
+          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4 flex items-center gap-2">📰 Latest News</h3>
+            <div id="subcategoryNews" class="space-y-3">
+              <!-- Dynamic news items -->
             </div>
           </div>
 
-          <!-- Right Column: News & Intelligence -->
-          <div class="space-y-8">
-            <!-- News Feed -->
-            <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-              <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <span>📰</span> News & Intelligence
-              </h2>
-              <div class="space-y-4">
-                ${market.news.map(item => `
-                  <div class="bg-slate-800/50 rounded-xl p-4 hover:bg-slate-800/70 transition-colors cursor-pointer">
-                    <h3 class="text-white font-semibold mb-2 text-sm">${item.title}</h3>
-                    <div class="flex items-center justify-between text-xs">
-                      <span class="text-slate-400">${item.source}</span>
-                      <span class="text-slate-500">${item.time}</span>
-                    </div>
-                  </div>
-                `).join('')}
-              </div>
+          <!-- Quick Stats -->
+          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">Quick Stats</h3>
+            <div id="subcategoryQuickStats" class="space-y-3">
+              <!-- Dynamic quick stats -->
             </div>
+          </div>
 
-            <!-- Market Sentiment -->
-            <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-              <h2 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                <span>💭</span> Market Sentiment
-              </h2>
-              <div class="space-y-4">
-                <div class="bg-slate-800/50 rounded-xl p-4">
-                  <div class="flex justify-between items-center mb-2">
-                    <span class="text-slate-400">Bullish</span>
-                    <span class="text-green-400 font-semibold">${market.outcomes[0].probability}%</span>
-                  </div>
-                  <div class="h-2 bg-slate-700 rounded-full overflow-hidden">
-                    <div class="h-full bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" style="width: ${market.outcomes[0].probability}%"></div>
-                  </div>
-                </div>
-                <div class="bg-slate-800/50 rounded-xl p-4">
-                  <p class="text-slate-400 text-sm mb-2">Confidence Level</p>
-                  <p class="text-2xl font-bold text-white">High</p>
-                  <p class="text-xs text-slate-500 mt-1">Based on ${market.traders} traders</p>
-                </div>
-              </div>
+          <!-- Related Competitions -->
+          <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+            <h3 class="text-lg font-bold text-white mb-4">Related</h3>
+            <div id="subcategoryRelated" class="space-y-3">
+              <!-- Dynamic related items -->
             </div>
           </div>
         </div>
-      `;
-    }
+      </div>
+    </div>
 
-    function showMarkets() {
-      document.getElementById('detailView').classList.add('hidden');
-      document.getElementById('marketsView').classList.remove('hidden');
-    }
-
-    function openPredictionForm(marketId, outcomeId) {
-      const market = markets.find(m => m.id === marketId);
-      const outcome = market.outcomes.find(o => o.id === outcomeId);
-
-      const modal = document.createElement('div');
-      modal.className = 'fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4';
-      modal.innerHTML = `
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 max-w-md w-full">
-          <div class="flex justify-between items-center mb-6">
-            <h3 class="text-xl font-bold text-white">Place Prediction</h3>
-            <button onclick="this.closest('.fixed').remove()" class="text-slate-400 hover:text-white">✕</button>
+    <!-- Settings View -->
+    <div id="settingsView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
+      <div class="mb-8">
+        <div class="cursor-pointer" onclick="navigateTo('dashboard')" title="Go to Dashboard">
+          <img src="Logo-Title.png" alt="Samsa Prediction Markets" class="h-16" />
+        </div>
+      </div>
+      <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-white mb-6">Settings</h2>
+        <div class="space-y-4">
+          <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl">
+            <span class="text-white">Dark Mode</span>
+            <span class="text-yellow-400">Enabled</span>
           </div>
-          
-          <div class="bg-slate-800/50 rounded-xl p-4 mb-6">
-            <p class="text-slate-400 text-sm mb-1">Predicting on</p>
-            <p class="text-white font-semibold">${outcome.title}</p>
-            <p class="text-yellow-400 text-2xl font-bold mt-2">${outcome.probability}% odds</p>
+          <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl">
+            <span class="text-white">Notifications</span>
+            <span class="text-slate-400">Configure</span>
           </div>
-
-          <div class="space-y-4">
-            <div>
-              <label class="text-white font-medium mb-2 block">Stake Amount ($)</label>
-              <input type="number" id="stakeAmount" min="1" placeholder="Enter amount" class="w-full bg-slate-800 border border-slate-700 text-white rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-yellow-500/20" />
-            </div>
-
-            <div class="bg-slate-800/50 rounded-xl p-4">
-              <div class="flex justify-between mb-2">
-                <span class="text-slate-400">Potential Return</span>
-                <span class="text-green-400 font-bold" id="potentialReturn">$0.00</span>
-              </div>
-              <div class="flex justify-between">
-                <span class="text-slate-400">Potential Profit</span>
-                <span class="text-green-400 font-semibold" id="potentialProfit">$0.00</span>
-              </div>
-            </div>
-
-            <button onclick="submitPrediction()" class="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-slate-950 font-bold py-3 rounded-lg transition-all">
-              Confirm Prediction
-            </button>
+          <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl">
+            <span class="text-white">Language</span>
+            <span class="text-slate-400">English</span>
+          </div>
+          <div class="flex items-center justify-between p-4 bg-slate-800/50 rounded-xl">
+            <span class="text-white">Currency</span>
+            <span class="text-slate-400">USD</span>
           </div>
         </div>
-      `;
-      document.body.appendChild(modal);
+      </div>
+    </div>
 
-      document.getElementById('stakeAmount').addEventListener('input', function (e) {
-        const stake = parseFloat(e.target.value) || 0;
-        const multiplier = 100 / outcome.probability;
-        const potentialReturn = stake * multiplier;
-        const profit = potentialReturn - stake;
-
-        document.getElementById('potentialReturn').textContent = '$' + potentialReturn.toFixed(2);
-        document.getElementById('potentialProfit').textContent = '$' + profit.toFixed(2);
-      });
-    }
-
-    function submitPrediction() {
-      alert('Prediction submitted successfully! (Demo mode)');
-      document.querySelector('.fixed').remove();
-    }
-
-    function filterMarkets() {
-      const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-      const cards = document.querySelectorAll('.market-card');
-
-      cards.forEach(card => {
-        const category = card.dataset.category;
-        const text = card.textContent.toLowerCase();
-
-        const matchesSearch = text.includes(searchTerm);
-        const matchesCategory = currentCategory === 'all' || category === currentCategory;
-
-        card.style.display = (matchesSearch && matchesCategory) ? 'block' : 'none';
-      });
-    }
-
-    // Event listeners
-    document.getElementById('searchInput').addEventListener('input', filterMarkets);
-
-    document.querySelectorAll('.category-btn').forEach(btn => {
-      btn.addEventListener('click', function () {
-        document.querySelectorAll('.category-btn').forEach(b => {
-          b.className = 'category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800';
-        });
-        this.className = 'category-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950';
-
-        currentCategory = this.dataset.category;
-        filterMarkets();
-      });
-    });
-
-    // Initialize
-    renderMarkets();
-    console.log('Samsa Prediction Markets loaded successfully!');
-
-    // --- Backend Data Loading & Fallbacks ---
-    const APP = { markets: [], predictions: [], loaded: false };
-
-    async function fetchJson(url) {
-      try {
-        const res = await fetch(url);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
-      } catch (e) {
-        console.warn('Fetch failed', url, e.message);
-        return null;
-      }
-    }
-
-    async function loadBackendData() {
-      if (APP.loaded) return;
-      const mkts = await fetchJson('/api/markets');
-      const preds = await fetchJson('/api/predictions');
-
-      // Fallback demo data if backend empty or unavailable
-      APP.markets = Array.isArray(mkts) && mkts.length > 0 ? mkts : [
-        {
-          id: 'mkt_demo_001',
-          title: 'Will Example Corp beat earnings this quarter?',
-          description: 'Q4 earnings report scheduled next month.',
-          category: 'finance',
-          status: 'active',
-          outcomes: [
-            { id: 'yes', title: 'Yes', probability: 52, total_stake: 12000 },
-            { id: 'no', title: 'No', probability: 48, total_stake: 11000 }
-          ],
-          total_volume: 23000,
-          image_url: '',
-          winning_outcome_id: null,
-          search_keywords: 'Example Corp earnings'
-        },
-        {
-          id: 'mkt_demo_002',
-          title: 'Will Bitcoin reach $100,000 by end of 2025?',
-          description: 'Predict BTC hitting $100k before 2025 ends',
-          category: 'crypto',
-          status: 'active',
-          outcomes: [
-            { id: 'yes', title: 'Yes', probability: 65, total_stake: 15000 },
-            { id: 'no', title: 'No', probability: 35, total_stake: 8000 }
-          ],
-          total_volume: 23000,
-          image_url: '',
-          winning_outcome_id: null,
-          search_keywords: 'Bitcoin BTC'
-        }
-      ];
-
-      APP.predictions = Array.isArray(preds) && preds.length > 0 ? preds : [
-        {
-          id: 'pred_1', market_id: 'mkt_demo_002', outcome_id: 'yes', stake_amount: 2500,
-          odds_at_prediction: 65, potential_return: 3846, status: 'active', actual_return: 0,
-          user_id: 'demo', created_at: '2025-10-28T10:24:00Z'
-        },
-        {
-          id: 'pred_2', market_id: 'mkt_demo_001', outcome_id: 'no', stake_amount: 1200,
-          odds_at_prediction: 55, potential_return: 2181, status: 'won', actual_return: 2181,
-          user_id: 'demo', created_at: '2025-08-12T14:05:00Z'
-        },
-        {
-          id: 'pred_3', market_id: 'mkt_demo_001', outcome_id: 'yes', stake_amount: 800,
-          odds_at_prediction: 40, potential_return: 2000, status: 'lost', actual_return: 0,
-          user_id: 'demo', created_at: '2025-04-20T09:15:00Z'
-        },
-        {
-          id: 'pred_4', market_id: 'mkt_demo_002', outcome_id: 'no', stake_amount: 1500,
-          odds_at_prediction: 35, potential_return: 4285, status: 'active', actual_return: 0,
-          user_id: 'demo', created_at: '2025-11-01T18:45:00Z'
-        }
-      ];
-
-      APP.loaded = true;
-    }
-
-    async function postJson(url, body) {
-      try {
-        const res = await fetch(url, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
-        return await res.json();
-      } catch (e) {
-        console.warn('Post failed', url, e.message);
-        return null;
-      }
-    }
-
-    function hideAllViews() {
-      const ids = ['marketsView','detailView','dashboardView','portfolioView','activityView','settingsView','profileView'];
-      ids.forEach(id => { const el = document.getElementById(id); if (el) el.classList.add('hidden'); });
-    }
-
-    function formatCurrency(n) {
-      return `$${Number(n).toLocaleString()}`;
-    }
-
-    // Currency helpers (respect Settings currency)
-    function currencySymbol() {
-      const s = readSettings();
-      switch ((s.currency||'USD').toUpperCase()) {
-        case 'EUR': return '€';
-        case 'GBP': return '£';
-        default: return '$';
-      }
-    }
-    function fmtMoney(n) {
-      const s = readSettings();
-      const locale = s.currency === 'EUR' ? 'de-DE' : s.currency === 'GBP' ? 'en-GB' : 'en-US';
-      const curr = (s.currency||'USD');
-      try {
-        return new Intl.NumberFormat(locale, { style: 'currency', currency: curr }).format(n||0);
-      } catch {
-        const sym = currencySymbol();
-        return `${sym}${Number(n||0).toLocaleString()}`;
-      }
-    }
-
-    function renderPortfolioStats() {
-      const balance = APP.predictions.reduce((sum, p) => sum + (p.status === 'won' ? p.actual_return : 0), 0);
-      const invested = APP.predictions.reduce((sum, p) => sum + p.stake_amount, 0);
-      const unrealized = APP.predictions
-        .filter(p => p.status === 'active')
-        .reduce((sum, p) => sum + (p.potential_return - p.stake_amount), 0);
-      const activeCount = APP.predictions.filter(p => p.status === 'active').length;
-      const wonCount = APP.predictions.filter(p => p.status === 'won').length;
-      const lostCount = APP.predictions.filter(p => p.status === 'lost').length;
-
-      document.getElementById('portfolioStats').innerHTML = `
-        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-slate-400 text-sm font-medium mb-1">Balance</p>
-              <p class="text-3xl font-bold text-white">${formatCurrency(balance)}</p>
-            </div>
-            <div class="w-12 h-12 bg-yellow-500/10 rounded-xl flex items-center justify-center text-2xl">💰</div>
-          </div>
+    <!-- Profile View -->
+    <div id="profileView" class="hidden max-w-7xl mx-auto p-6 lg:p-8">
+      <div class="mb-8">
+        <div class="cursor-pointer" onclick="navigateTo('dashboard')" title="Go to Dashboard">
+          <img src="Logo-Title.png" alt="Samsa Prediction Markets" class="h-16" />
         </div>
-        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-slate-400 text-sm font-medium mb-1">Invested</p>
-              <p class="text-3xl font-bold text-white">${formatCurrency(invested)}</p>
-            </div>
-            <div class="w-12 h-12 bg-indigo-500/10 rounded-xl flex items-center justify-center text-2xl">📈</div>
-          </div>
-        </div>
-        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-slate-400 text-sm font-medium mb-1">Unrealized P/L</p>
-              <p class="text-3xl font-bold ${unrealized >= 0 ? 'text-green-400' : 'text-red-400'}">${formatCurrency(unrealized)}</p>
-            </div>
-            <div class="w-12 h-12 bg-green-500/10 rounded-xl flex items-center justify-center text-2xl">🟢</div>
-          </div>
-        </div>
-        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-slate-400 text-sm font-medium mb-1">Positions</p>
-              <p class="text-3xl font-bold text-white">${activeCount} active · ${wonCount} won · ${lostCount} lost</p>
-            </div>
-            <div class="w-12 h-12 bg-orange-500/10 rounded-xl flex items-center justify-center text-2xl">📊</div>
-          </div>
-        </div>
-      `;
-    }
-
-    function getMarketById(id) { return APP.markets.find(m => m.id === id); }
-    function getOutcomeTitle(market, outcome_id) {
-      const o = market?.outcomes?.find(x => x.id === outcome_id);
-      return o ? o.title : outcome_id;
-    }
-
-    function renderPortfolio(filter = 'all') {
-      renderPortfolioStats();
-      const list = APP.predictions.filter(p => filter === 'all' ? true : p.status === filter);
-      const html = list.map(p => {
-        const market = getMarketById(p.market_id);
-        const marketTitle = market ? market.title : p.market_id;
-        const outcomeTitle = getOutcomeTitle(market, p.outcome_id);
-        const odds = p.odds_at_prediction;
-        return `
-        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
-          <div class="flex items-start justify-between mb-4">
-            <div>
-              <h3 class="text-lg font-bold text-white">${marketTitle}</h3>
-              <p class="text-slate-400 text-sm">${outcomeTitle} @ ${odds}%</p>
-            </div>
-            <span class="px-3 py-1 rounded-lg text-xs font-semibold ${p.status === 'active' ? 'bg-indigo-500/10 text-indigo-300' : p.status === 'won' ? 'bg-green-500/10 text-green-300' : 'bg-red-500/10 text-red-300'}">${p.status.toUpperCase()}</span>
-          </div>
-          <div class="space-y-2">
-            <div class="flex items-center justify-between text-sm">
-              <span class="text-slate-400">Stake</span>
-              <span class="text-white font-medium">${formatCurrency(p.stake_amount)}</span>
-            </div>
-            <div class="flex items-center justify-between text-sm">
-              <span class="text-slate-400">Potential Return</span>
-              <span class="text-white font-medium">${formatCurrency(p.potential_return)}</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <div class="flex-1 bg-slate-700 rounded-full h-2 overflow-hidden">
-                <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 h-full rounded-full transition-all duration-300" style="width: ${odds}%"></div>
-              </div>
-              <span class="text-yellow-400 font-bold text-sm">${odds}%</span>
-            </div>
-          </div>
-          <div class="mt-4 text-xs text-slate-500">Entered ${new Date(p.created_at).toLocaleDateString()}</div>
-        </div>
-      `; }).join('');
-      document.getElementById('portfolioContent').innerHTML = html || `<div class="text-slate-400">No positions in this filter.</div>`;
-
-      // Wire filter buttons
-      document.querySelectorAll('.pf-btn').forEach(btn => {
-        btn.onclick = () => {
-          document.querySelectorAll('.pf-btn').forEach(b => b.className = 'pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800');
-          btn.className = 'pf-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950';
-          renderPortfolio(btn.dataset.filter);
-        };
-      });
-    }
-
-    function renderActivity(filter = 'all') {
-      const list = APP.predictions
-        .map(p => ({
-          ...p,
-          type: p.status === 'active' ? 'trade' : 'resolution',
-          title: `${getMarketById(p.market_id)?.title || p.market_id}`,
-          subtitle: `${getOutcomeTitle(getMarketById(p.market_id), p.outcome_id)} @ ${p.odds_at_prediction}%`,
-          amount: p.status === 'active' ? `-$${p.stake_amount.toLocaleString()}` : `+$${p.actual_return.toLocaleString()}`
-        }))
-        .filter(a => filter === 'all' ? true : a.type === filter)
-        .sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-
-      const html = list.map(a => `
-        <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-4">
-          <div class="flex items-start justify-between">
-            <div>
-              <h3 class="text-white font-semibold">${a.type === 'trade' ? 'Opened position: ' : 'Resolution: '}${a.title}</h3>
-              <p class="text-slate-400 text-sm">${a.subtitle}</p>
-              <p class="text-slate-500 text-xs mt-1">${new Date(a.created_at).toLocaleString()}</p>
-            </div>
-            <div class="text-right">
-              <div class="text-sm font-bold ${a.status === 'won' ? 'text-green-400' : a.status === 'lost' ? 'text-red-400' : 'text-slate-300'}">${a.amount}</div>
-              <span class="px-2 py-1 rounded-lg text-xs font-semibold ${a.type === 'trade' ? 'bg-indigo-500/10 text-indigo-300' : 'bg-yellow-500/10 text-yellow-300'}">${a.type.toUpperCase()}</span>
-            </div>
-          </div>
-        </div>
-      `).join('');
-      document.getElementById('activityContent').innerHTML = html || `<div class="text-slate-400">No activity.</div>`;
-
-      // Wire filter buttons
-      document.querySelectorAll('.af-btn').forEach(btn => {
-        btn.onclick = () => {
-          document.querySelectorAll('.af-btn').forEach(b => b.className = 'af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all text-slate-300 hover:bg-slate-800');
-          btn.className = 'af-btn px-4 py-2 rounded-lg text-sm font-medium transition-all bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950';
-          renderActivity(btn.dataset.afilter);
-        };
-      });
-    }
-
-    function showPortfolio() {
-      hideAllViews();
-      document.getElementById('portfolioView').classList.remove('hidden');
-      loadBackendData().then(() => renderPortfolio('all'));
-    }
-
-    function showActivity() {
-      hideAllViews();
-      document.getElementById('activityView').classList.remove('hidden');
-      loadBackendData().then(() => renderActivity('all'));
-    }
-
-    function renderDashboard() {
-      // Stats
-      const invested = APP.predictions.reduce((s, p) => s + p.stake_amount, 0);
-      const realized = APP.predictions.filter(p => p.status !== 'active').reduce((s, p) => s + (p.actual_return - p.stake_amount), 0);
-      const activeCount = APP.predictions.filter(p => p.status === 'active').length;
-      const marketsCount = APP.markets.length;
-      document.getElementById('dbStats').innerHTML = `
-        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-          <div class="text-slate-400 text-sm">Invested</div>
-          <div class="text-3xl font-bold text-white">${fmtMoney(invested)}</div>
-        </div>
-        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-          <div class="text-slate-400 text-sm">Realized P/L</div>
-          <div class="text-3xl font-bold ${realized>=0?'text-green-400':'text-red-400'}">${fmtMoney(realized)}</div>
-        </div>
-        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-          <div class="text-slate-400 text-sm">Active Positions</div>
-          <div class="text-3xl font-bold text-white">${activeCount}</div>
-        </div>
-        <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-          <div class="text-slate-400 text-sm">Markets</div>
-          <div class="text-3xl font-bold text-white">${marketsCount}</div>
-        </div>`;
-
-      // Buying power = arbitrary demo value based on invested
-      const buyingPower = Math.max(100, Math.round(invested * 0.045));
-      document.getElementById('dbBuyingPower').textContent = fmtMoney(buyingPower);
-
-      // Positions Snapshot
-      const posHtml = APP.predictions.slice(0, 5).map(p => {
-        const m = APP.markets.find(x => x.id === p.market_id);
-        const title = m?.title || p.market_id;
-        const outcome = (m?.outcomes||[]).find(o=>o.id===p.outcome_id)?.title || p.outcome_id;
-        return `
-          <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
-            <div>
-              <div class="text-white font-semibold">${title}</div>
-              <div class="text-slate-400 text-sm">${outcome} @ ${p.odds_at_prediction}%</div>
-            </div>
-            <div class="text-right">
-              <div class="text-sm text-slate-300">Stake</div>
-              <div class="text-lg font-bold">${fmtMoney(p.stake_amount)}</div>
-            </div>
-          </div>`;
-      }).join('');
-      document.getElementById('dbPositions').innerHTML = posHtml || `<div class="text-slate-400">No positions yet.</div>`;
-
-      // Trending Markets Snapshot
-      const trending = [...APP.markets].sort((a,b)=>(b.total_volume||0)-(a.total_volume||0)).slice(0,5);
-      const trHtml = trending.map(m => `
-        <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
+      </div>
+      <div class="bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6">
+        <div class="flex items-center gap-6 mb-8">
+          <div
+            class="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-500 to-amber-600 flex items-center justify-center text-4xl">
+            👤</div>
           <div>
-            <div class="text-white font-semibold">${m.title}</div>
-            <div class="text-slate-400 text-sm">${m.category}</div>
+            <h2 class="text-2xl font-bold text-white">Demo User</h2>
+            <p class="text-slate-400">@demouser</p>
           </div>
-          <div class="text-right">
-            <div class="text-sm text-slate-300">Volume</div>
-            <div class="text-lg font-bold text-yellow-400">$${(m.total_volume||0).toLocaleString()}</div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div class="bg-slate-800/50 rounded-xl p-4 text-center">
+            <p class="text-2xl font-bold text-yellow-400">$10,000</p>
+            <p class="text-slate-400 text-sm">Balance</p>
           </div>
-        </div>`).join('');
-      document.getElementById('dbTrending').innerHTML = trHtml || `<div class="text-slate-400">No market data.</div>`;
-
-      // Recent Activity
-      const acts = APP.predictions
-        .map(p => ({
-          title: APP.markets.find(m=>m.id===p.market_id)?.title || p.market_id,
-          subtitle: `${(APP.markets.find(m=>m.id===p.market_id)?.outcomes||[]).find(o=>o.id===p.outcome_id)?.title||p.outcome_id} @ ${p.odds_at_prediction}%`,
-          created_at: p.created_at,
-          amount: p.status==='active'?`-$${p.stake_amount.toLocaleString()}`:`+$${p.actual_return.toLocaleString()}`,
-          status: p.status
-        }))
-        .sort((a,b)=>new Date(b.created_at)-new Date(a.created_at))
-        .slice(0,6);
-      const aHtml = acts.map(a=>`
-        <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
-          <div>
-            <div class="text-white font-semibold">${a.title}</div>
-            <div class="text-slate-400 text-sm">${a.subtitle}</div>
-            <div class="text-slate-500 text-xs mt-1">${new Date(a.created_at).toLocaleString()}</div>
+          <div class="bg-slate-800/50 rounded-xl p-4 text-center">
+            <p class="text-2xl font-bold text-yellow-400">12</p>
+            <p class="text-slate-400 text-sm">Predictions</p>
           </div>
-          <div class="text-right ${a.status==='won'?'text-green-400':a.status==='lost'?'text-red-400':'text-slate-300'} font-bold">${a.amount}</div>
-        </div>`).join('');
-      document.getElementById('dbActivity').innerHTML = aHtml || `<div class="text-slate-400">No activity.</div>`;
-    }
-
-    function showDashboard() {
-      hideAllViews();
-      document.getElementById('dashboardView').classList.remove('hidden');
-      loadBackendData().then(() => renderDashboard());
-    }
-
-    // Settings & Profile
-    function readSettings() {
-      try { return JSON.parse(localStorage.getItem('samsa.settings')||'{}'); } catch { return {}; }
-    }
-    function writeSettings(s) { localStorage.setItem('samsa.settings', JSON.stringify(s)); }
-
-    function showSettings() {
-      hideAllViews();
-      let html = `
-        <div id="settingsView" class="max-w-7xl mx-auto p-6 lg:p-8">
-          <div class="mb-8">
-            <h2 class="text-2xl font-bold text-white mb-2">Settings</h2>
-            <p class="text-slate-400">Customize your experience</p>
+          <div class="bg-slate-800/50 rounded-xl p-4 text-center">
+            <p class="text-2xl font-bold text-yellow-400">68%</p>
+            <p class="text-slate-400 text-sm">Win Rate</p>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-              <h3 class="text-white font-semibold mb-4">Preferences</h3>
-              <label class="flex items-center justify-between mb-3">
-                <span class="text-slate-300">Compact mode</span>
-                <input id="setCompact" type="checkbox" class="h-5 w-5" />
-              </label>
-              <label class="block mb-3">
-                <span class="text-slate-300">Currency</span>
-                <select id="setCurrency" class="mt-1 w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3">
-                  <option value="USD">USD</option>
-                  <option value="EUR">EUR</option>
-                  <option value="GBP">GBP</option>
-                </select>
-              </label>
-              <label class="block mb-3">
-                <span class="text-slate-300">Default page</span>
-                <select id="setDefaultPage" class="mt-1 w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3">
-                  <option value="markets">Markets</option>
-                  <option value="dashboard">Dashboard</option>
-                  <option value="portfolio">Portfolio</option>
-                </select>
-              </label>
-              <label class="flex items-center justify-between">
-                <span class="text-slate-300">Notifications</span>
-                <input id="setNotifications" type="checkbox" class="h-5 w-5" />
-              </label>
-              <div class="mt-4 text-sm text-slate-400">Money preview: <span id="moneyPreview" class="font-semibold text-white"></span></div>
-              <div class="mt-4 flex gap-2">
-                <button id="resetSettings" class="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700">Reset</button>
-              </div>
-            </div>
-            <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-              <h3 class="text-white font-semibold mb-4">About</h3>
-              <p class="text-slate-400">Version 1.0 • Samsa Prediction Markets</p>
-              <div class="mt-4">
-                <button onclick="navigateTo('dashboard')" class="px-3 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold">Go to Dashboard</button>
-              </div>
-            </div>
-          </div>
-          <div class="mt-6">
-            <button id="saveSettings" class="px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold">Save Settings</button>
-          </div>
-        </div>`;
-      const container = document.querySelector('.main-content');
-      const existing = document.getElementById('settingsView'); if (existing) existing.remove();
-      const temp = document.createElement('div'); temp.innerHTML = html; container.appendChild(temp.firstChild);
-      const s = readSettings();
-      document.getElementById('setCompact').checked = !!s.compact;
-      document.getElementById('setCurrency').value = s.currency || 'USD';
-      document.getElementById('setDefaultPage').value = s.defaultPage || 'markets';
-      document.getElementById('setNotifications').checked = !!s.notifications;
-      const updatePreview = () => { document.getElementById('moneyPreview').textContent = fmtMoney(123456.78); };
-      updatePreview();
-      document.getElementById('setCurrency').addEventListener('change', updatePreview);
-      document.getElementById('saveSettings').onclick = () => {
-        const newS = {
-          compact: document.getElementById('setCompact').checked,
-          currency: document.getElementById('setCurrency').value,
-          defaultPage: document.getElementById('setDefaultPage').value,
-          notifications: document.getElementById('setNotifications').checked
-        };
-        writeSettings(newS);
-        document.body.classList.toggle('compact', !!newS.compact);
-        alert('Settings saved');
-      };
-      document.getElementById('resetSettings').onclick = () => { localStorage.removeItem('samsa.settings'); alert('Settings reset'); showSettings(); };
-    }
-
-    function showProfile() {
-      hideAllViews();
-      loadBackendData().then(() => {
-        const name = (readSettings().displayName)||'Demo User';
-        const total = APP.predictions.length;
-        const won = APP.predictions.filter(p=>p.status==='won').length;
-        const lost = APP.predictions.filter(p=>p.status==='lost').length;
-        const winRate = total? Math.round((won/(won+lost||1))*100):0;
-        const invested = APP.predictions.reduce((s,p)=>s+p.stake_amount,0);
-        const realized = APP.predictions.filter(p=>p.status!=='active').reduce((s,p)=>s+(p.actual_return-p.stake_amount),0);
-        const view = `
-          <div id="profileView" class="max-w-7xl mx-auto p-6 lg:p-8">
-            <div class="mb-8 flex items-center justify-between">
+        </div>
+        <div class="border-t border-slate-800 pt-6">
+          <h3 class="text-lg font-bold text-white mb-4">Recent Predictions</h3>
+          <div class="space-y-3">
+            <div class="bg-slate-800/50 rounded-xl p-4 flex justify-between items-center">
               <div>
-                <h2 class="text-2xl font-bold text-white mb-1">${name}</h2>
-                <p class="text-slate-400">demo@samsa.local</p>
+                <p class="text-white font-medium">Bitcoin to $100k</p>
+                <p class="text-slate-400 text-sm">Predicted: Yes</p>
               </div>
-              <div class="flex gap-2">
-                <button id="toPortfolio" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700">Open Portfolio</button>
-                <button id="exportData" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700">Export Predictions</button>
-              </div>
+              <span class="text-green-400 font-bold">+$250</span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8" id="pfStats"></div>
-            <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6">
-              <h3 class="text-white font-semibold mb-4">Edit profile</h3>
-              <label class="block mb-3">
-                <span class="text-slate-300">Display name</span>
-                <input id="pfName" type="text" class="mt-1 w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3" value="${name}" />
-              </label>
-              <div class="flex gap-2">
-                <button id="saveProfile" class="px-3 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold">Save</button>
-                <button id="cancelProfile" class="px-3 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700">Cancel</button>
+            <div class="bg-slate-800/50 rounded-xl p-4 flex justify-between items-center">
+              <div>
+                <p class="text-white font-medium">Lakers Championship</p>
+                <p class="text-slate-400 text-sm">Predicted: Yes</p>
               </div>
+              <span class="text-yellow-400 font-bold">Pending</span>
             </div>
-          </div>`;
-        const container = document.querySelector('.main-content');
-        const existing = document.getElementById('profileView'); if (existing) existing.remove();
-        const temp = document.createElement('div'); temp.innerHTML = view; container.appendChild(temp.firstChild);
-        document.getElementById('pfStats').innerHTML = `
-          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6"><div class="text-slate-400 text-sm">Positions</div><div class="text-3xl font-bold text-white">${total}</div></div>
-          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6"><div class="text-slate-400 text-sm">Win Rate</div><div class="text-3xl font-bold text-white">${winRate}%</div></div>
-          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6"><div class="text-slate-400 text-sm">Invested</div><div class="text-3xl font-bold text-white">${fmtMoney(invested)}</div></div>
-          <div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6"><div class="text-slate-400 text-sm">Realized P/L</div><div class="text-3xl font-bold ${realized>=0?'text-green-400':'text-red-400'}">${fmtMoney(realized)}</div></div>`;
-        document.getElementById('saveProfile').onclick = () => { const s = readSettings(); s.displayName = (document.getElementById('pfName').value||'').trim() || 'Demo User'; writeSettings(s); showProfile(); };
-        document.getElementById('cancelProfile').onclick = () => navigateTo('dashboard');
-        document.getElementById('toPortfolio').onclick = () => navigateTo('portfolio');
-        document.getElementById('exportData').onclick = () => {
-          const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(APP.predictions, null, 2));
-          const dl = document.createElement('a'); dl.setAttribute('href', dataStr); dl.setAttribute('download', 'predictions.json'); dl.click();
-        };
-      });
-    }
-
-    function renderLeaderboard() {
-      // Top markets by total_volume
-      const markets = [...APP.markets].sort((a, b) => (b.total_volume || 0) - (a.total_volume || 0)).slice(0, 5);
-      const mHtml = markets.map(m => `
-        <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
-          <div>
-            <h4 class="text-white font-semibold">${m.title}</h4>
-            <p class="text-slate-400 text-sm">${m.category} • ${m.status}</p>
-          </div>
-          <div class="text-right">
-            <div class="text-sm text-slate-300">Total Volume</div>
-            <div class="text-lg font-bold text-yellow-400">$${(m.total_volume || 0).toLocaleString()}</div>
           </div>
         </div>
-      `).join('');
-      document.getElementById('lbMarkets').innerHTML = mHtml || `<div class="text-slate-400">No market data.</div>`;
-
-      // Top categories by aggregated volume
-      const catMap = {};
-      APP.markets.forEach(m => { catMap[m.category] = (catMap[m.category] || 0) + (m.total_volume || 0); });
-      const cats = Object.entries(catMap).sort((a, b) => b[1] - a[1]).slice(0, 5);
-      const cHtml = cats.map(([cat, vol]) => `
-        <div class="flex items-center justify-between bg-slate-800/40 rounded-xl p-4">
-          <div class="text-white font-semibold">${cat}</div>
-          <div class="text-lg font-bold text-yellow-400">$${vol.toLocaleString()}</div>
-        </div>
-      `).join('');
-      document.getElementById('lbCategories').innerHTML = cHtml || `<div class="text-slate-400">No category data.</div>`;
-    }
-
-    function showLeaderboard() {
-      hideAllViews();
-      document.getElementById('leaderboardView').classList.remove('hidden');
-      loadBackendData().then(() => renderLeaderboard());
-    }
-
-    // --- Create Position Modal ---
-    function openCreatePosition() {
-      loadBackendData().then(() => {
-        const modal = document.getElementById('createPositionModal');
-        const mSel = document.getElementById('cpMarket');
-        const oSel = document.getElementById('cpOutcome');
-        const stake = document.getElementById('cpStake');
-        const status = document.getElementById('cpStatus');
-        status.textContent = '';
-
-        // Populate markets
-        mSel.innerHTML = APP.markets.map(m => `<option value="${m.id}">${m.title}</option>`).join('');
-        // Populate outcomes for first or selected market
-        const selectedMarket = APP.markets.find(m => m.id === mSel.value) || APP.markets[0];
-        mSel.value = selectedMarket?.id || '';
-        oSel.innerHTML = (selectedMarket?.outcomes || []).map(o => `<option value="${o.id}">${o.title}</option>`).join('');
-        stake.value = '1000';
-        updateCreatePositionPreview();
-
-        // Show
-        modal.classList.remove('hidden');
-
-        // Handlers
-        mSel.onchange = () => {
-          const m = APP.markets.find(x => x.id === mSel.value);
-          oSel.innerHTML = (m?.outcomes || []).map(o => `<option value="${o.id}">${o.title}</option>`).join('');
-          updateCreatePositionPreview();
-        };
-        oSel.onchange = updateCreatePositionPreview;
-        stake.oninput = updateCreatePositionPreview;
-      });
-    }
-
-    function closeCreatePosition() {
-      document.getElementById('createPositionModal').classList.add('hidden');
-    }
-
-    function getSelectedOutcomeProbability() {
-      const mSel = document.getElementById('cpMarket').value;
-      const oSel = document.getElementById('cpOutcome').value;
-      const m = APP.markets.find(x => x.id === mSel);
-      const o = m?.outcomes?.find(x => x.id === oSel);
-      return o ? (o.probability || 50) : 50;
-    }
-
-    function updateCreatePositionPreview() {
-      const odds = getSelectedOutcomeProbability();
-      const stake = Number(document.getElementById('cpStake').value || 0);
-      const potential = stake > 0 ? Number((stake * (100 / Math.max(odds, 1))).toFixed(2)) : 0;
-      document.getElementById('cpOdds').textContent = `${odds}%`;
-      document.getElementById('cpPotential').textContent = `$${potential.toLocaleString()}`;
-    }
-
-    async function submitCreatePosition() {
-      const market_id = document.getElementById('cpMarket').value;
-      const outcome_id = document.getElementById('cpOutcome').value;
-      const stake_amount = Number(document.getElementById('cpStake').value || 0);
-      const odds_at_prediction = getSelectedOutcomeProbability();
-      const status = document.getElementById('cpStatus');
-      status.textContent = '';
-
-      if (!market_id || !outcome_id || stake_amount <= 0) {
-        status.textContent = 'Please select market/outcome and enter a positive stake.';
-        status.className = 'text-red-400 text-sm';
-        return;
-      }
-
-      const payload = { market_id, outcome_id, stake_amount, odds_at_prediction, user_id: 'demo' };
-      const created = await postJson('/api/predictions', payload);
-
-      if (created) {
-        // Refresh predictions
-        const preds = await fetchJson('/api/predictions');
-        APP.predictions = Array.isArray(preds) ? preds : APP.predictions;
-        closeCreatePosition();
-        renderPortfolio('all');
-      } else {
-        status.textContent = 'Failed to create position. Using demo-only add.';
-        status.className = 'text-yellow-400 text-sm';
-        // Fallback: add locally
-        const potential_return = Number((stake_amount * (100 / Math.max(odds_at_prediction, 1))).toFixed(2));
-        APP.predictions.push({
-          id: `local_${Date.now()}`,
-          market_id,
-          outcome_id,
-          stake_amount,
-          odds_at_prediction,
-          potential_return,
-          status: 'active',
-          actual_return: 0,
-          user_id: 'demo',
-          created_at: new Date().toISOString()
-        });
-        closeCreatePosition();
-        renderPortfolio('all');
-      }
-    }
-
-    // Wire the create button when Portfolio view is shown
-    document.addEventListener('DOMContentLoaded', () => {
-      // Apply persisted settings
-      const s = readSettings();
-      if (s && s.compact) document.body.classList.add('compact');
-      if (s && s.defaultPage && ['markets','dashboard','portfolio'].includes(s.defaultPage)) {
-        // Navigate to preferred default page
-        navigateTo(s.defaultPage);
-      }
-
-      // Wire create position modal buttons
-      const btn = document.getElementById('createPositionBtn');
-      if (btn) btn.onclick = openCreatePosition;
-      const cancel = document.getElementById('cpCancel');
-      const submit = document.getElementById('cpSubmit');
-      const close = document.getElementById('cpClose');
-      if (cancel) cancel.onclick = closeCreatePosition;
-      if (close) close.onclick = closeCreatePosition;
-      if (submit) submit.onclick = submitCreatePosition;
-    });
-  </script>
-  
-  <!-- Create Position Modal -->
-  <div id="createPositionModal" class="hidden fixed inset-0 bg-slate-950/60 backdrop-blur-sm flex items-center justify-center z-50">
-    <div class="bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 w-full max-w-lg">
-      <div class="flex items-center justify-between mb-4">
-        <h3 class="text-xl font-bold text-white">Create Position</h3>
-        <button id="cpClose" class="text-slate-400 hover:text-white">✕</button>
-      </div>
-      <div class="space-y-4">
-        <div>
-          <label class="block text-sm text-slate-400 mb-1">Market</label>
-          <select id="cpMarket" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3"></select>
-        </div>
-        <div>
-          <label class="block text-sm text-slate-400 mb-1">Outcome</label>
-          <select id="cpOutcome" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3"></select>
-        </div>
-        <div>
-          <label class="block text-sm text-slate-400 mb-1">Stake Amount (USD)</label>
-          <input id="cpStake" type="number" min="1" step="1" value="1000" class="w-full bg-slate-800/50 border border-slate-700 text-white rounded-lg p-3" />
-        </div>
-        <div class="grid grid-cols-2 gap-4">
-          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
-            <div class="text-slate-400 text-xs">Odds</div>
-            <div id="cpOdds" class="text-white text-lg font-semibold">--%</div>
-          </div>
-          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4">
-            <div class="text-slate-400 text-xs">Potential Return</div>
-            <div id="cpPotential" class="text-green-400 text-lg font-semibold">$0</div>
-          </div>
-        </div>
-        <div id="cpStatus" class="text-sm"></div>
-      </div>
-      <div class="mt-6 flex justify-end gap-2">
-        <button id="cpCancel" class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 border border-slate-700 hover:bg-slate-700">Cancel</button>
-        <button id="cpSubmit" class="px-4 py-2 rounded-xl bg-gradient-to-r from-yellow-500 to-yellow-600 text-slate-950 font-semibold hover:brightness-110">Create Position</button>
       </div>
     </div>
   </div>
+
+  <!-- Load JS Files (cache bust: v23) - Organized Folder Structure -->
+
+  <!-- CORE: Configuration & State -->
+  <script src="js/core/config.js?v=23"></script>
+  <script src="js/core/state.js?v=23"></script>
+
+  <!-- UTILS: Helper Functions -->
+  <script src="js/utils/storage.js?v=23"></script>
+  <script src="js/utils/helpers.js?v=23"></script>
+  <script src="js/utils/filters.js?v=23"></script>
+
+  <!-- VIEWS: Page Components -->
+  <script src="js/views/navigation.js?v=23"></script>
+  <script src="js/views/markets.js?v=23"></script>
+  <script src="js/views/predictions.js?v=23"></script>
+  <script src="js/views/pages.js?v=23"></script>
+  <script src="js/views/interests.js?v=23"></script>
+  <script src="js/views/subcategories.js?v=23"></script>
+
+  <!-- DATA: API & Data Loading -->
+  <script src="js/data/data-loader.js?v=23"></script>
+
+  <!-- CORE: Main App Initialization -->
+  <script src="js/core/app.js?v=23"></script>
 </body>
 
 </html>
